@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service
+  namespace: microbank-dev
+  labels:
+    app: auth-service
+spec:
+  replicas: 1   # DEV
+  selector:
+    matchLabels:
+      app: auth-service
+  template:
+    metadata:
+      labels:
+        app: auth-service
+    spec:
+      containers:
+      - name: auth-service
+        image: 65486509/auth-service:1.0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8081
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+
+        # Postgres (auth DB)
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:postgresql://postgres-auth-service:5432/auth_db
+        - name: SPRING_DATASOURCE_USERNAME
+          value: auth_db
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: auth_db
+
+        # Redis
+        - name: SPRING_DATA_REDIS_HOST
+          value: redis
+        - name: SPRING_DATA_REDIS_PORT
+          value: "6379"

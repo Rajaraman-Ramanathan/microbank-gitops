@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: microbank-dev
+  labels:
+    name: microbank-dev
+    environment: development
+    owner: microbank-platform

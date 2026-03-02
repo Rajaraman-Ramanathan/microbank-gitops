@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maildev
+  namespace: microbank-dev
+  labels:
+    app: maildev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: maildev
+  template:
+    metadata:
+      labels:
+        app: maildev
+    spec:
+      containers:
+      - name: maildev
+        image: maildev/maildev
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 1025  # SMTP
+        - containerPort: 1080  # Web UI

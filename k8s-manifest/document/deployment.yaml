@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: document-service
+  namespace: microbank-dev
+  labels:
+    app: document-service
+spec:
+  replicas: 1   # DEV
+  selector:
+    matchLabels:
+      app: document-service
+  template:
+    metadata:
+      labels:
+        app: document-service
+    spec:
+      containers:
+      - name: document-service
+        image: 65486509/document-service:1.0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8084
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+
+        # Postgres (document DB)
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:postgresql://postgres-document-service:5432/document_db
+        - name: SPRING_DATASOURCE_USERNAME
+          value: document_db
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: document_db
+
+        # MinIO
+        - name: MINIO_ENDPOINT
+          value: http://minio:9000
+        - name: MINIO_ACCESS_KEY
+          value: capellax
+        - name: MINIO_SECRET_KEY
+          value: "12345678"
+        - name: MINIO_BUCKET_NAME
+          value: documents

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+  namespace: microbank-dev
+  labels:
+    app: api-gateway
+spec:
+  replicas: 1   # DEV: single replica
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+      - name: api-gateway
+        image: 65486509/apigateway-service:1.0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8123
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker

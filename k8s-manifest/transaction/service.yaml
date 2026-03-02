@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: transaction-service
+  namespace: microbank-dev
+  labels:
+    app: transaction-service
+spec:
+  type: ClusterIP
+  selector:
+    app: transaction-service
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8083

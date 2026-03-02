@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-transaction
+  namespace: microbank-dev
+  labels:
+    app: postgres-transaction
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-transaction
+  template:
+    metadata:
+      labels:
+        app: postgres-transaction
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:17-alpine
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: transaction_db
+        - name: POSTGRES_USER
+          value: transaction_db
+        - name: POSTGRES_PASSWORD
+          value: transaction_db

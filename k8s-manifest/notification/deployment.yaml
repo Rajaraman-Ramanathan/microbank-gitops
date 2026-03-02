@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-service
+  namespace: microbank-dev
+  labels:
+    app: notification-service
+spec:
+  replicas: 1   # DEV
+  selector:
+    matchLabels:
+      app: notification-service
+  template:
+    metadata:
+      labels:
+        app: notification-service
+    spec:
+      containers:
+      - name: notification-service
+        image: 65486509/notification-service:1.0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8085
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+
+        # RabbitMQ
+        - name: SPRING_RABBITMQ_HOST
+          value: rabbitmq
+        - name: SPRING_RABBITMQ_PORT
+          value: "5672"
+        - name: SPRING_RABBITMQ_USERNAME
+          value: guest
+        - name: SPRING_RABBITMQ_PASSWORD
+          value: guest
+
+        # Maildev (SMTP)
+        - name: SPRING_MAIL_HOST
+          value: maildev
+        - name: SPRING_MAIL_PORT
+          value: "1025"
+        - name: SPRING_MAIL_USERNAME
+          value: maildev
+        - name: SPRING_MAIL_PASSWORD
+          value: maildev

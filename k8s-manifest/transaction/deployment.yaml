@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transaction-service
+  namespace: microbank-dev
+  labels:
+    app: transaction-service
+spec:
+  replicas: 1   # DEV
+  selector:
+    matchLabels:
+      app: transaction-service
+  template:
+    metadata:
+      labels:
+        app: transaction-service
+    spec:
+      containers:
+      - name: transaction-service
+        image: 65486509/transaction-service:1.0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8083
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+
+        # Postgres (transaction DB)
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:postgresql://postgres-transaction-service:5432/transaction_db
+        - name: SPRING_DATASOURCE_USERNAME
+          value: transaction_db
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: transaction_db
+
+        # RabbitMQ
+        - name: SPRING_RABBITMQ_HOST
+          value: rabbitmq
+        - name: SPRING_RABBITMQ_PORT
+          value: "5672"
