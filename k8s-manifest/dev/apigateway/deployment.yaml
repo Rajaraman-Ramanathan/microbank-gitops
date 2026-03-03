@@ -21,6 +21,36 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8123
-        env:
-        - name: SPRING_PROFILES_ACTIVE
-          value: docker
+        envFrom:
+          - configMapRef:
+              name: apigateway-service-config
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+        startupProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8123
+          failureThreshold: 30
+          periodSeconds: 10
+          timeoutSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8123
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8123
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apigateway-service-config
+  namespace: dev
+data:
+  SPRING_PROFILES_ACTIVE: docker

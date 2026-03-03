@@ -21,20 +21,41 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8081
-        env:
-        - name: SPRING_PROFILES_ACTIVE
-          value: docker
+        envFrom:
+          - configMapRef:
+              name: auth-service-config
+          - secretRef:
+              name: auth-service-secret
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+          limits:
+            cpu: "600m"
+            memory: "512Mi"
+        startupProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8081
+          failureThreshold: 30
+          periodSeconds: 10
+          timeoutSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8081
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8081
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        
 
-        # Postgres (auth DB)
-        - name: SPRING_DATASOURCE_URL
-          value: jdbc:postgresql://postgres-auth-service:5432/auth_db
-        - name: SPRING_DATASOURCE_USERNAME
-          value: auth_db
-        - name: SPRING_DATASOURCE_PASSWORD
-          value: auth_db
-
-        # Redis
-        - name: SPRING_DATA_REDIS_HOST
-          value: redis
-        - name: SPRING_DATA_REDIS_PORT
-          value: "6379"
+        
