@@ -6,7 +6,7 @@ metadata:
   labels:
     app: document-service
 spec:
-  replicas: 1   # DEV
+  replicas: 1 # DEV
   selector:
     matchLabels:
       app: document-service
@@ -16,43 +16,43 @@ spec:
         app: document-service
     spec:
       containers:
-      - name: document-service
-        image: 65486509/document-service:1.0.1
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8084
-        envFrom:
-          - configMapRef:
-              name: document-service-config
-          - secretRef:
-              name: document-service-secret
-        resources:
-          requests:
-            cpu: "250m"
-            memory: "256Mi"
-          limits:
-            cpu: "600m"
-            memory: "512Mi"
-        startupProbe:
-          httpGet:
-            path: /actuator/health
-            port: 8084
-          failureThreshold: 40
-          periodSeconds: 5
-          timeoutSeconds: 3
-        readinessProbe:
-          httpGet:
-            path: /actuator/health/readiness
-            port: 8084
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          timeoutSeconds: 3
-          failureThreshold: 3
-        livenessProbe:
-          httpGet:
-            path: /actuator/health/liveness
-            port: 8084
-          initialDelaySeconds: 10
-          periodSeconds: 20
-          timeoutSeconds: 3
-          failureThreshold: 5
+        - name: document-service
+          image: '65486509/document-service:'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8084
+          envFrom:
+            - configMapRef:
+                name: document-service-config
+            - secretRef:
+                name: document-service-secret
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "600m"
+              memory: "512Mi"
+          startupProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8084
+            failureThreshold: 40
+            periodSeconds: 5
+            timeoutSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8084
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8084
+            initialDelaySeconds: 10
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 5
