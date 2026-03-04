@@ -9,3 +9,4 @@ data:
   SPRING_RABBITMQ_PORT: "5672"
   SPRING_MAIL_HOST: maildev
   SPRING_MAIL_PORT: "1025"
+  SENDER_EMAIL: no-reply@microbank.co
