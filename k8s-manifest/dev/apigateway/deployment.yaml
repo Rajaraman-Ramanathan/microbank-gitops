@@ -16,7 +16,7 @@ spec:
         app: apigateway-service
     spec:
       containers:
-        - name: apigateway
+        - name: apigateway-service
           image: 65486509/apigateway-service:1.0.1
           imagePullPolicy: Always
           ports:
