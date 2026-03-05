@@ -6,7 +6,7 @@ metadata:
   labels:
     app: api-gateway
 spec:
-  replicas: 1   # DEV: single replica
+  replicas: 1 # DEV: single replica
   selector:
     matchLabels:
       app: api-gateway
@@ -16,41 +16,41 @@ spec:
         app: api-gateway
     spec:
       containers:
-      - name: api-gateway
-        image: 65486509/apigateway-service:1.0.1
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8123
-        envFrom:
-          - configMapRef:
-              name: apigateway-service-config
-        resources:
-          requests:
-            cpu: "200m"
-            memory: "256Mi"
-          limits:
-            cpu: "500m"
-            memory: "512Mi"
-        startupProbe:
-          httpGet:
-            path: /actuator/health
-            port: 8123
-          failureThreshold: 30
-          periodSeconds: 10
-          timeoutSeconds: 3
-        readinessProbe:
-          httpGet:
-            path: /actuator/health/readiness
-            port: 8123
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          timeoutSeconds: 3
-          failureThreshold: 3
-        livenessProbe:
-          httpGet:
-            path: /actuator/health/liveness
-            port: 8123
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          timeoutSeconds: 3
-          failureThreshold: 3
+        - name: api-gateway
+          image: 65486509/apigateway-service:1.0.1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8123
+          envFrom:
+            - configMapRef:
+                name: apigateway-service-config
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          startupProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8123
+            failureThreshold: 30
+            periodSeconds: 10
+            timeoutSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8123
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8123
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3

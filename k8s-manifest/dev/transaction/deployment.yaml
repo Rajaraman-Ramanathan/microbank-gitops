@@ -6,7 +6,7 @@ metadata:
   labels:
     app: transaction-service
 spec:
-  replicas: 1   # DEV
+  replicas: 1 # DEV
   selector:
     matchLabels:
       app: transaction-service
@@ -16,43 +16,43 @@ spec:
         app: transaction-service
     spec:
       containers:
-      - name: transaction-service
-        image: 65486509/transaction-service:1.0.1
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8083
-        envFrom:
-          - configMapRef:
-              name: transaction-service-config
-          - secretRef:
-              name: transaction-service-secret
-        resources:
-          requests:
-            cpu: "300m"
-            memory: "384Mi"
-          limits:
-            cpu: "700m"
-            memory: "768Mi"
-        startupProbe:
-          httpGet:
-            path: /actuator/health
-            port: 8083
-          failureThreshold: 40
-          periodSeconds: 5
-          timeoutSeconds: 3
-        readinessProbe:
-          httpGet:
-            path: /actuator/health/readiness
-            port: 8083
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          timeoutSeconds: 3
-          failureThreshold: 2
-        livenessProbe:
-          httpGet:
-            path: /actuator/health/liveness
-            port: 8083
-          initialDelaySeconds: 10
-          periodSeconds: 20
-          timeoutSeconds: 5
-          failureThreshold: 5
+        - name: transaction-service
+          image: 65486509/transaction-service:1.0.20
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8083
+          envFrom:
+            - configMapRef:
+                name: transaction-service-config
+            - secretRef:
+                name: transaction-service-secret
+          resources:
+            requests:
+              cpu: "300m"
+              memory: "384Mi"
+            limits:
+              cpu: "700m"
+              memory: "768Mi"
+          startupProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8083
+            failureThreshold: 40
+            periodSeconds: 5
+            timeoutSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8083
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 2
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8083
+            initialDelaySeconds: 10
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 5
