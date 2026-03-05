@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: api-gateway
+  name: apigateway-service
   namespace: microbank-dev
   labels:
-    app: api-gateway
+    app: apigateway-service
 spec:
   type: ClusterIP
   selector:
-    app: api-gateway
+    app: apigateway-service
   ports:
   - name: http
     port: 80    # Keeping port 80 for abstracting the actual port
