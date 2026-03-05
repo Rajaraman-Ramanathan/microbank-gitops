@@ -17,8 +17,29 @@ spec:
     spec:
       containers:
       - name: maildev
-        image: maildev/maildev
-        imagePullPolicy: Always
+        image: maildev/maildev:2.2.1
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 1025  # SMTP
         - containerPort: 1080  # Web UI
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 1080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 1080
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          failureThreshold: 5
