@@ -2,7 +2,6 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: transaction-service-config
-  namespace: microbank-dev
 data:
   SPRING_PROFILES_ACTIVE: docker
   SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-transaction-service:5432/transaction_db

@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+
+# Platform components
+- ../../platform/namespaces
+- ../../platform/networking/ingress
+- ../../platform/security/keycloak
+
+# Infrastructure services
+- ../../infrastructure/database/postgres-account
+- ../../infrastructure/database/postgres-auth
+- ../../infrastructure/database/postgres-document
+- ../../infrastructure/database/postgres-transaction
+- ../../infrastructure/messaging/rabbitmq
+- ../../infrastructure/cache/redis
+- ../../infrastructure/storage/minio
+- ../../infrastructure/dev-tools/maildev
+
+# Applications
+- ../../applications/account
+- ../../applications/apigateway
+- ../../applications/auth
+- ../../applications/document
+- ../../applications/transaction
+- ../../applications/notification

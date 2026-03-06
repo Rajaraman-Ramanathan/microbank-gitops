@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: document-service
-  namespace: microbank-dev
   labels:
     app: document-service
 spec:
