@@ -6,9 +6,7 @@ namespace: microbank-dev
 resources:
 
 # Platform components
-- ../../platform/namespaces
-- ../../platform/networking/ingress
-- ../../platform/security/keycloak
+- ../../platform/
 
 # Infrastructure services
 - ../../infrastructure/database/postgres-account
