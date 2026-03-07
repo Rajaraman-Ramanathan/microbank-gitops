@@ -12,9 +12,4 @@ resources:
 - ../../infrastructure/
 
 # Applications
-- ../../applications/account
-- ../../applications/apigateway
-- ../../applications/auth
-- ../../applications/document
-- ../../applications/transaction
-- ../../applications/notification
+- ../../applications
