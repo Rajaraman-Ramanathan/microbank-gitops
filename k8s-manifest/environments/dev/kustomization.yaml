@@ -9,14 +9,7 @@ resources:
 - ../../platform/
 
 # Infrastructure services
-- ../../infrastructure/database/postgres-account
-- ../../infrastructure/database/postgres-auth
-- ../../infrastructure/database/postgres-document
-- ../../infrastructure/database/postgres-transaction
-- ../../infrastructure/messaging/rabbitmq
-- ../../infrastructure/cache/redis
-- ../../infrastructure/storage/minio
-- ../../infrastructure/dev-tools/maildev
+- ../../infrastructure/
 
 # Applications
 - ../../applications/account
