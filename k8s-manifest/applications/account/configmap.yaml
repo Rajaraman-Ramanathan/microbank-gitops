@@ -6,3 +6,4 @@ data:
   SPRING_PROFILES_ACTIVE: docker
   SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-account-service:5432/account_db
   SPRING_DATASOURCE_USERNAME: account_db
+  SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver

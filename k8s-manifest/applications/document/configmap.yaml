@@ -6,6 +6,7 @@ data:
   SPRING_PROFILES_ACTIVE: docker
   SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-document-service:5432/document_db
   SPRING_DATASOURCE_USERNAME: document_db
+  SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
   MINIO_ENDPOINT: http://minio:9000
   MINIO_BUCKET_NAME: documents
   SPRING_RABBITMQ_HOST: rabbitmq

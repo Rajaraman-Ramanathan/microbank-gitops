@@ -6,6 +6,7 @@ data:
   SPRING_PROFILES_ACTIVE: docker
   SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-transaction-service:5432/transaction_db
   SPRING_DATASOURCE_USERNAME: transaction_db
+  SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
   SPRING_RABBITMQ_HOST: rabbitmq
   SPRING_RABBITMQ_PORT: "5672"
   SPRING_RABBITMQ_USERNAME: guest
