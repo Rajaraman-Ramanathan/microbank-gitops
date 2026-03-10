@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: transaction-service
-          image: 65486509/transaction-service:1.0.28
+          image: 65486509/transaction-service:1.0.29
           imagePullPolicy: Always
           ports:
             - containerPort: 8083
