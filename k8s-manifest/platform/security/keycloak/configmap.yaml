@@ -4,6 +4,6 @@ metadata:
   name: keycloak-config
 data:
   KC_HTTP_ENABLED: "true"
-  KC_HOSTNAME: "auth.microbank.local"
+  KC_HOSTNAME: "keycloak"
   KC_HOSTNAME_STRICT: "false"
   KC_HEALTH_ENABLED: "true"
