@@ -34,7 +34,7 @@ spec:
               memory: "512Mi"
           startupProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/liveness
               port: 8081
             failureThreshold: 60
             periodSeconds: 5

@@ -29,17 +29,15 @@ spec:
             cpu: "500m"
             memory: "512Mi"
         readinessProbe:
-          httpGet:
-            path: /api/healthchecks/node
-            port: 15672
-          initialDelaySeconds: 15
+          tcpSocket:
+            port: 5672
+          initialDelaySeconds: 20
           periodSeconds: 10
           timeoutSeconds: 3
           failureThreshold: 5
         livenessProbe:
-          httpGet:
-            path: /api/healthchecks/node
-            port: 15672
+          tcpSocket:
+            port: 5672
           initialDelaySeconds: 30
           periodSeconds: 20
           timeoutSeconds: 5
