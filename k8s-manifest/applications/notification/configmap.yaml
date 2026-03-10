@@ -9,3 +9,4 @@ data:
   SPRING_MAIL_HOST: maildev
   SPRING_MAIL_PORT: "1025"
   SENDER_EMAIL: no-reply@microbank.co
+  SERVER_PORT: "8085"

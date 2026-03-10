@@ -4,3 +4,4 @@ metadata:
   name: apigateway-service-config
 data:
   SPRING_PROFILES_ACTIVE: docker
+  SERVER_PORT: "8123"
