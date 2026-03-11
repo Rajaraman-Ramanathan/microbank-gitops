@@ -9,10 +9,10 @@ data:
   SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
   SPRING_DATA_REDIS_HOST: redis
   SPRING_DATA_REDIS_PORT: "6379"
-  KEYCLOAK_LOGIN_TOKEN_URL: http://keycloak/realms/microbank/protocol/openid-connect/token
+  KEYCLOAK_LOGIN_TOKEN_URL: http://auth.microbank.local/realms/microbank/protocol/openid-connect/token
   KEYCLOAK_LOGIN_GRANT_TYPE: password
   KEYCLOAK_LOGIN_CLIENT_ID: microbank-client
-  KEYCLOAK_CONFIG_SERVER_URL: http://keycloak
+  KEYCLOAK_CONFIG_SERVER_URL: http://auth.microbank.local
   KEYCLOAK_CONFIG_REALM: master
   KEYCLOAK_CONFIG_CLIENT_ID: admin-cli
   KEYCLOAK_CONFIG_USERNAME: admin
