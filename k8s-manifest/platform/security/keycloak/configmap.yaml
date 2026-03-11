@@ -7,3 +7,4 @@ data:
   KC_HOSTNAME: "auth.microbank.local"
   KC_HOSTNAME_STRICT: "false"
   KC_HEALTH_ENABLED: "true"
+  KC_PROXY: edge
