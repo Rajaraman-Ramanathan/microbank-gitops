@@ -1,0 +1,14 @@
+architecture: standalone
+
+auth:
+  enabled: true
+  password: redis-dev-password
+
+master:
+  persistence:
+    enabled: false
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
