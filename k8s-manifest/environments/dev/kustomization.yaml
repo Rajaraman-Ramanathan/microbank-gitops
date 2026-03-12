@@ -8,8 +8,5 @@ resources:
 # Platform components
 - ../../platform/
 
-# Infrastructure services
-- ../../infrastructure/
-
 # Applications
-- ../../applications
+- ../../workloads/

@@ -5,3 +5,4 @@ resources:
 - namespaces
 - networking/ingress
 - security/keycloak
+- shared-infra
