@@ -1,0 +1,17 @@
+auth:
+  username: devuser
+  password: devpassword
+  erlangCookie: devcookie
+
+replicaCount: 1
+
+persistence:
+  enabled: false
+
+resources:
+  requests:
+    cpu: 150m
+    memory: 256Mi
+
+service:
+  type: ClusterIP

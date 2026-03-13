@@ -1,0 +1,16 @@
+mode: standalone
+
+auth:
+  rootUser: devminio
+  rootPassword: devminiopassword
+
+persistence:
+  enabled: false
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 256Mi
+
+service:
+  type: ClusterIP
