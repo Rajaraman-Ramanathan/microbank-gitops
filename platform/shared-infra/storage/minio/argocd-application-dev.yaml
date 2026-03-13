@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: minio
-    targetRevision: 14.0.0
+    targetRevision: 17.0.1
     helm:
       valueFiles:
         - helm/values-dev.yaml

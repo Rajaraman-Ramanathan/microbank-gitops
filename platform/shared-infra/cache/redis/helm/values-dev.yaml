@@ -2,13 +2,27 @@ architecture: standalone
 
 auth:
   enabled: true
-  password: redis-dev-password
+  password: devpassword
 
 master:
   persistence:
     enabled: false
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 100m
+    limits:
+      memory: 512Mi
+  containerSecurityContext:
+    enabled: true
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
 
-resources:
-  requests:
-    memory: 256Mi
-    cpu: 100m
+service:
+  type: ClusterIP
+
+networkPolicy:
+  enabled: false
+
+metrics:
+  enabled: true

@@ -12,6 +12,19 @@ resources:
   requests:
     cpu: 150m
     memory: 256Mi
+  limits:
+    memory: 512Mi
 
 service:
   type: ClusterIP
+
+containerSecurityContext:
+  enabled: true
+  runAsNonRoot: true
+  allowPrivilegeEscalation: false
+
+metrics:
+  enabled: true
+
+networkPolicy:
+  enabled: false
