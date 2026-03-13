@@ -1,0 +1,31 @@
+auth:
+  adminUser: admin
+  existingSecret: keycloak-secret
+
+postgresql:
+  enabled: false
+
+externalDatabase:
+  host: postgres.postgres.svc.cluster.local
+  port: 5432
+  user: keycloakuser
+  password: keycloakpass
+  database: keycloakdb
+
+resources:
+  requests:
+    cpu: 300m
+    memory: 512Mi
+
+extraVolumes:
+  - name: realm-config
+    configMap:
+      name: keycloak-realm-config
+
+extraVolumeMounts:
+  - name: realm-config
+    mountPath: /opt/bitnami/keycloak/data/import
+
+extraStartupArgs: "--import-realm"
+
+extraEnvVarsCM: keycloak-config

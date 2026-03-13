@@ -7,3 +7,4 @@ resources:
 - rabbitmq.yaml
 - minio.yaml
 - postgres.yaml
+- keycloak.yaml
