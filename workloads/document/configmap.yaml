@@ -4,8 +4,8 @@ metadata:
   name: document-service-config
 data:
   SPRING_PROFILES_ACTIVE: docker
-  SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-document-service:5432/document_db
-  SPRING_DATASOURCE_USERNAME: document_db
+  SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-postgresql.postgres.svc.cluster.local:5432/documentdb
+  SPRING_DATASOURCE_USERNAME: documentuser
   SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
   MINIO_ENDPOINT: http://minio:9000
   MINIO_BUCKET_NAME: documents
