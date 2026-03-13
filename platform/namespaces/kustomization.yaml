@@ -5,4 +5,5 @@ resources:
 - namespace.yaml
 - redis.yaml
 - rabbitmq.yaml
-- minio
+- minio.yaml
+- postgres.yaml

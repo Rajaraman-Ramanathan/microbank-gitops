@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-initdb
+data:
+  init.sql: |
+    CREATE DATABASE accountdb;
+    CREATE DATABASE authdb;
+    CREATE DATABASE transactiondb;
+    CREATE DATABASE documentdb;
+
+    CREATE USER accountuser WITH PASSWORD 'accountpass';
+    CREATE USER authuser WITH PASSWORD 'authpass';
+    CREATE USER transactionuser WITH PASSWORD 'transactionpass';
+    CREATE USER documentuser WITH PASSWORD 'documentpass';
+
+    GRANT ALL PRIVILEGES ON DATABASE accountdb TO accountuser;
+    GRANT ALL PRIVILEGES ON DATABASE authdb TO authuser;
+    GRANT ALL PRIVILEGES ON DATABASE transactiondb TO transactionuser;
+    GRANT ALL PRIVILEGES ON DATABASE documentdb TO documentuser;
