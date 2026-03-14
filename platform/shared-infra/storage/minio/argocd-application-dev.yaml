@@ -10,6 +10,7 @@ spec:
     chart: minio
     targetRevision: 17.0.1
     helm:
+      releaseName: minio
       valueFiles:
         - helm/values-dev.yaml
   destination:

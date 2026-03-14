@@ -7,9 +7,9 @@ data:
   SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-postgresql.postgres.svc.cluster.local:5432/documentdb
   SPRING_DATASOURCE_USERNAME: documentuser
   SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
-  MINIO_ENDPOINT: http://minio:9000
+  MINIO_ENDPOINT: http://minio-minio.minio.svc.cluster.local:9000
   MINIO_BUCKET_NAME: documents
-  SPRING_RABBITMQ_HOST: rabbitmq
+  SPRING_RABBITMQ_HOST: rabbitmq.rabbitmq.svc.cluster.local
   SPRING_RABBITMQ_PORT: "5672"
-  SPRING_RABBITMQ_USERNAME: guest
+  SPRING_RABBITMQ_USERNAME: devuser
   SERVER_PORT: "8084"

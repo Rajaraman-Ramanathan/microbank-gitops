@@ -10,6 +10,7 @@ spec:
     chart: rabbitmq
     targetRevision: 16.0.0
     helm:
+      releaseName: rabbitmq
       valueFiles:
         - helm/values-dev.yaml
   destination:
