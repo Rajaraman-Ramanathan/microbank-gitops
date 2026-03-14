@@ -7,19 +7,6 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  # Keycloak
-  - host: auth.microbank.local
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: keycloak
-            port:
-              number: 80
-              
-  # API Gateway
   - host: api.microbank.local
     http:
       paths:

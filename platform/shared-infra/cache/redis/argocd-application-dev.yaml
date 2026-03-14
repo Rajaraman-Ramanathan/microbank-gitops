@@ -10,6 +10,7 @@ spec:
     chart: redis
     targetRevision: 25.0.0
     helm:
+      releaseName: redis
       valueFiles:
         - helm/values-dev.yaml
   destination:

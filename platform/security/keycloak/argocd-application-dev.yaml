@@ -8,8 +8,9 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: keycloak
-    targetRevision: 22.0.0
+    targetRevision: 25.0.0
     helm:
+      releaseName: keycloak
       valueFiles:
         - helm/values-dev.yaml
   destination:
