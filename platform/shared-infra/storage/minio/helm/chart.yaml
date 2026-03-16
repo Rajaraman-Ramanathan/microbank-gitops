@@ -1,0 +1,10 @@
+apiVersion: v2
+name: minio-wrapper
+description: MinIO wrapper chart for Microbank platform
+type: application
+version: 0.1.0
+
+dependencies:
+  - name: minio
+    version: 17.0.1
+    repository: https://charts.bitnami.com/bitnami

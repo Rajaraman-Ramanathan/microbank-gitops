@@ -8,13 +8,13 @@ metadata:
 spec:
   project: platform
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: rabbitmq
-    targetRevision: 16.0.0
+    repoURL: <YOUR_GIT_REPO_URL>
+    targetRevision: HEAD
+    path: platform/shared-infra/messaging/rabbitmq/helm
     helm:
       releaseName: rabbitmq
       valueFiles:
-        - helm/values-dev.yaml
+        - values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: rabbitmq
