@@ -1,21 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: rabbitmq-dev
+  name: redis-dev
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: platform
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: rabbitmq
-    targetRevision: 16.0.0
+    repoURL: <YOUR_GIT_REPO_URL>
+    targetRevision: HEAD
+    path: platform/shared-infra/cache/redis/helm
     helm:
-      releaseName: rabbitmq
+      releaseName: redis
       valueFiles:
-        - helm/values-dev.yaml
+        - values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: rabbitmq
+    namespace: redis
   syncPolicy:
     automated:
       prune: true

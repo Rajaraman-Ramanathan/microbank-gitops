@@ -1,0 +1,10 @@
+apiVersion: v2
+name: postgres-wrapper
+description: PostgreSQL wrapper for Microbank platform
+type: application
+version: 0.1.0
+
+dependencies:
+  - name: postgresql
+    version: 18.2.0
+    repository: https://charts.bitnami.com/bitnami

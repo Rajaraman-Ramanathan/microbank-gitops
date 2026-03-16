@@ -1,21 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: keycloak-dev
+  name: minio-dev
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: platform
   source:
     repoURL: https://charts.bitnami.com/bitnami
-    chart: keycloak
-    targetRevision: 25.0.0
+    chart: minio
+    targetRevision: 17.0.1
     helm:
-      releaseName: keycloak
+      releaseName: minio
       valueFiles:
         - helm/values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: keycloak
+    namespace: minio
   syncPolicy:
     automated:
       prune: true

@@ -1,21 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: minio-dev
+  name: rabbitmq-dev
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: platform
   source:
     repoURL: https://charts.bitnami.com/bitnami
-    chart: minio
-    targetRevision: 17.0.1
+    chart: rabbitmq
+    targetRevision: 16.0.0
     helm:
-      releaseName: minio
+      releaseName: rabbitmq
       valueFiles:
         - helm/values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: minio
+    namespace: rabbitmq
   syncPolicy:
     automated:
       prune: true

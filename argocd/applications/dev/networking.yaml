@@ -1,21 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: redis-dev
+  name: networking-dev
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   project: platform
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: redis
-    targetRevision: 25.0.0
-    helm:
-      releaseName: redis
-      valueFiles:
-        - helm/values-dev.yaml
+    repoURL: <YOUR_REPO_URL>
+    targetRevision: HEAD
+    path: platform/bootstrap/networking
   destination:
     server: https://kubernetes.default.svc
-    namespace: redis
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true

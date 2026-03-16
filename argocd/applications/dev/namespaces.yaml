@@ -1,21 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: postgres-dev
+  name: namespaces-dev
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: platform
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: postgresql
-    targetRevision: 18.2.0
-    helm:
-      releaseName: postgres
-      valueFiles:
-        - helm/values-dev.yaml
+    repoURL: <YOUR_REPO_URL>
+    targetRevision: HEAD
+    path: platform/bootstrap/namespaces
   destination:
     server: https://kubernetes.default.svc
-    namespace: postgres
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
