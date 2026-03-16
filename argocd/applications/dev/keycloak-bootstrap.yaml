@@ -1,20 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: keycloak-dev
+  name: keycloak-bootstrap-dev
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: platform
   source:
     repoURL: <YOUR_GIT_REPO>
     targetRevision: HEAD
-    path: platform/security/keycloak/helm
-    helm:
-      releaseName: keycloak
-      valueFiles:
-        - values-dev.yaml
+    path: platform/bootstrap/keycloak
   destination:
     server: https://kubernetes.default.svc
     namespace: keycloak

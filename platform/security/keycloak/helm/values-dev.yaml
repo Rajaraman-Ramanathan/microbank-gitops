@@ -15,10 +15,14 @@ externalDatabase:
 service:
   type: ClusterIP
 
+replicaCount: 1
+
 resources:
   requests:
     cpu: 300m
     memory: 512Mi
+  limits:
+    memory: 1Gi
 
 extraVolumes:
   - name: realm-config
@@ -32,3 +36,9 @@ extraVolumeMounts:
 extraStartupArgs: "--import-realm"
 
 extraEnvVarsCM: keycloak-config
+
+metrics:
+  enabled: true
+
+networkPolicy:
+  enabled: false
