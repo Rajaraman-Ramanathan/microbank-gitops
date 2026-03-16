@@ -3,6 +3,4 @@ kind: Namespace
 metadata:
   name: microbank-dev
   labels:
-    name: microbank-dev
-    environment: development
-    owner: microbank-platform
+    pod-security.kubernetes.io/enforce: restricted
