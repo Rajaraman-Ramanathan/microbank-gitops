@@ -12,6 +12,9 @@ externalDatabase:
   password: keycloakpass
   database: keycloakdb
 
+service:
+  type: ClusterIP
+
 resources:
   requests:
     cpu: 300m
