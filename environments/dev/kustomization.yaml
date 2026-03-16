@@ -6,7 +6,9 @@ namespace: microbank-dev
 resources:
 
 # Platform components
-- ../../platform/
+- ../../platform/namespaces/
+- ../../platform/networking/
+- ../../platform/shared-infra/dev-tools/maildev
 
 # Applications
 - ../../workloads/
