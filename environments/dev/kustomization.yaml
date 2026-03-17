@@ -4,11 +4,5 @@ kind: Kustomization
 namespace: microbank-dev
 
 resources:
-
-# Platform components
-- ../../platform/namespaces/
-- ../../platform/networking/
-- ../../platform/shared-infra/dev-tools/maildev
-
 # Applications
 - ../../workloads/

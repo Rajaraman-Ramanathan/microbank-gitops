@@ -8,7 +8,7 @@ metadata:
 spec:
   project: platform
   source:
-    repoURL: <YOUR_GIT_REPO_URL>
+    repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
     targetRevision: HEAD
     path: platform/shared-infra/storage/minio/helm
     helm:
