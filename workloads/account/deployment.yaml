@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: account-service
-          image: 65486509/account-service:1.0.32
+          image: 65486509/account-service:1.0.34
           imagePullPolicy: Always
           ports:
             - containerPort: 8082
