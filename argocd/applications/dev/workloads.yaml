@@ -9,7 +9,7 @@ spec:
   project: platform
   source:
     repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
-    targetRevision: HEAD
+    targetRevision: dev
     path: environments/dev
   destination:
     server: https://kubernetes.default.svc
