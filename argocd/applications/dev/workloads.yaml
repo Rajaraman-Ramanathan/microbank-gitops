@@ -6,7 +6,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "6"
 spec:
-  project: platform
+  project: workloads
   source:
     repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
     targetRevision: dev

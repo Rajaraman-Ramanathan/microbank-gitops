@@ -4,7 +4,7 @@ metadata:
   name: microbank-platform-dev
   namespace: argocd
 spec:
-  project: platform
+  project: default
   source:
     repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
     targetRevision: dev
