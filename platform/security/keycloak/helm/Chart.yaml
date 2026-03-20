@@ -6,5 +6,5 @@ version: 0.1.0
 
 dependencies:
   - name: keycloak
-    version: 25.0.0
+    version: 24.3.0
     repository: https://charts.bitnami.com/bitnami
