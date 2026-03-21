@@ -7,14 +7,17 @@ metadata:
     argocd.argoproj.io/sync-wave: "2"
 spec:
   project: platform
-  source:
-    repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
-    targetRevision: dev
-    path: platform/shared-infra/cache/redis/helm
+  sources:
+  - repoURL: https://charts.bitnami.com/bitnami
+    chart: redis
+    targetRevision: 25.0.0
     helm:
       releaseName: redis
       valueFiles:
-        - values-dev.yaml
+        - $values/platform/shared-infra/cache/redis/values-dev.yaml
+  - repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
+    targetRevision: dev
+    ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: redis
