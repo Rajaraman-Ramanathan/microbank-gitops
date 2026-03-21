@@ -14,7 +14,7 @@ spec:
     helm:
       releaseName: keycloak
       valueFiles:
-        - $values/platform/security/keycloak/helm/values-dev.yaml
+        - $values/platform/security/keycloak/values-dev.yaml
   - repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
     targetRevision: dev
     ref: values
