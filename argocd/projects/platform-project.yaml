@@ -8,6 +8,7 @@ spec:
 
   sourceRepos:
   - https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
+  - https://charts.bitnami.com/bitnami
 
   destinations:
   - namespace: '*'
