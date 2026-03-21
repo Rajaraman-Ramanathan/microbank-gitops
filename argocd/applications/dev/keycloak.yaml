@@ -8,13 +8,13 @@ metadata:
 spec:
   project: platform
   source:
-    repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
-    targetRevision: dev
-    path: platform/security/keycloak/helm
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: keycloak                               
+    targetRevision: 24.3.0 
     helm:
       releaseName: keycloak
       valueFiles:
-        - values-dev.yaml
+        - $values/platform/security/keycloak/helm/values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: keycloak
