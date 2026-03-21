@@ -18,6 +18,9 @@ service:
 
 replicaCount: 1
 
+image:
+  tag: latest
+
 resources:
   requests:
     cpu: 300m
