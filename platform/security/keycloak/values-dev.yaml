@@ -18,6 +18,10 @@ service:
 
 replicaCount: 1
 
+global:
+  security:
+    allowInsecureImages: true
+
 image:
   registry: quay.io
   repository: keycloak/keycloak
