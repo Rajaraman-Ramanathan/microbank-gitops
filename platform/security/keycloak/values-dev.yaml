@@ -35,7 +35,9 @@ extraEnv: |
   - name: KC_DB_PASSWORD
     value: keycloakpass
 
-extraEnvFrom: keycloak-config
+extraEnvFrom:
+  - configMapRef:
+      name: keycloak-config
 
 command:
   - "/opt/keycloak/bin/kc.sh"
