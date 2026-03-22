@@ -1,31 +1,12 @@
-auth:
-  adminUser: admin
-  existingSecret: keycloak-secret
+replicas: 1
 
-postgresql:
-  enabled: false
-
-externalDatabase:
-  enabled: true
-  host: postgres-postgresql.postgres.svc.cluster.local
-  port: 5432
-  user: keycloakuser
-  password: keycloakpass
-  database: keycloakdb
+image:
+  repository: quay.io/keycloak/keycloak
+  tag: "24.0.3"
+  pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
-
-replicaCount: 1
-
-global:
-  security:
-    allowInsecureImages: true
-
-image:
-  registry: quay.io
-  repository: keycloak/keycloak
-  tag: 24.0.3
 
 resources:
   requests:
@@ -34,21 +15,40 @@ resources:
   limits:
     memory: 1Gi
 
-extraVolumes:
+extraEnv: |
+  - name: KEYCLOAK_ADMIN
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-secret
+        key: username
+  - name: KEYCLOAK_ADMIN_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-secret
+        key: password
+  - name: KC_DB
+    value: postgres
+  - name: KC_DB_URL
+    value: jdbc:postgresql://postgres-postgresql.postgres.svc.cluster.local:5432/keycloakdb
+  - name: KC_DB_USERNAME
+    value: keycloakuser
+  - name: KC_DB_PASSWORD
+    value: keycloakpass
+
+extraEnvFrom: keycloak-config
+
+command:
+  - "/opt/keycloak/bin/kc.sh"
+args:
+  - "start-dev"
+  - "--import-realm"
+
+extraVolumes: |
   - name: realm-config
     configMap:
       name: keycloak-realm-config
 
-extraVolumeMounts:
+extraVolumeMounts: |
   - name: realm-config
-    mountPath: /opt/bitnami/keycloak/data/import
-
-extraStartupArgs: "--import-realm"
-
-extraEnvVarsCM: keycloak-config
-
-metrics:
-  enabled: true
-
-networkPolicy:
-  enabled: false
+    mountPath: /opt/keycloak/data/import
+    readOnly: true
