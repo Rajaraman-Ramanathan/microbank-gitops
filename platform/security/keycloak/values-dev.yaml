@@ -19,7 +19,9 @@ service:
 replicaCount: 1
 
 image:
-  tag: latest
+  registry: quay.io
+  repository: keycloak/keycloak
+  tag: 24.0.3
 
 resources:
   requests:
