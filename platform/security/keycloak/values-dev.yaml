@@ -8,6 +8,9 @@ image:
 service:
   type: ClusterIP
 
+postgresql:
+  enabled: false
+
 resources:
   requests:
     cpu: 300m
@@ -51,6 +54,15 @@ securityContext:
       - ALL
   seccompProfile:
     type: RuntimeDefault
+
+pgchecker:
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    seccompProfile:
+      type: RuntimeDefault
 
 command:
   - "/opt/keycloak/bin/kc.sh"
