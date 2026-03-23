@@ -1,29 +1,30 @@
-architecture: standalone
+postgresql:
+  architecture: standalone
 
-auth:
-  username: platformadmin
-  password: devpostgrespass
-  database: platform
+  auth:
+    username: platformadmin
+    password: devpostgrespass
+    database: platform
 
-primary:
-  persistence:
-    enabled: false
-  resources:
-    requests:
-      cpu: 250m
-      memory: 512Mi
-    limits:
-      memory: 1Gi
-  initdb:
-    scriptsConfigMap: postgres-initdb
-  containerSecurityContext:
+  primary:
+    persistence:
+      enabled: false
+    resources:
+      requests:
+        cpu: 250m
+        memory: 512Mi
+      limits:
+        memory: 1Gi
+    initdb:
+      scriptsConfigMap: postgres-initdb
+    containerSecurityContext:
+      enabled: true
+      runAsNonRoot: true
+      allowPrivilegeEscalation: false
+    service:
+      type: ClusterIP
+    networkPolicy:
+      enabled: false
+
+  metrics:
     enabled: true
-    runAsNonRoot: true
-    allowPrivilegeEscalation: false
-  service:
-    type: ClusterIP
-  networkPolicy:
-    enabled: false
-
-metrics:
-  enabled: true
