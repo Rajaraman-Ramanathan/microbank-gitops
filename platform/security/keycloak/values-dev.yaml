@@ -31,8 +31,10 @@ extraEnv: |
         key: password
   - name: KC_DB
     value: postgres
-  - name: KC_DB_URL
-    value: jdbc:postgresql://postgres-postgresql.postgres.svc.cluster.local:5432/keycloakdb
+  - name: KC_DB_URL_HOST
+    value: postgres-postgresql.postgres.svc.cluster.local
+  - name: KC_DB_URL_DATABASE
+    value: keycloakdb
   - name: KC_DB_USERNAME
     value: keycloakuser
   - name: KC_DB_PASSWORD
