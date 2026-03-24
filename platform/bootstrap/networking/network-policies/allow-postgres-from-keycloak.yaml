@@ -1,17 +1,17 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-redis-from-workloads
-  namespace: redis
+  name: allow-postgres-from-keycloak
+  namespace: postgres
 spec:
   podSelector: {}
   ingress:
   - from:
     - namespaceSelector:
         matchLabels:
-          name: microbank-dev
+          name: keycloak
     ports:
     - protocol: TCP
-      port: 6379
+      port: 5432
   policyTypes:
   - Ingress
