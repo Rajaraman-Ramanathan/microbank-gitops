@@ -1,17 +1,29 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-minio-from-workloads
+  name: minio-tier-policy
   namespace: minio
 spec:
-  podSelector: {}
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: minio
+
+  policyTypes:
+  - Ingress
+
   ingress:
   - from:
     - namespaceSelector:
         matchLabels:
-          name: microbank-dev
+          tier: workloads
     ports:
     - protocol: TCP
       port: 9000
-  policyTypes:
-  - Ingress
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          tier: ingress
+    ports:
+    - protocol: TCP
+      port: 9001
+  

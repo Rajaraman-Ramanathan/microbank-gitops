@@ -4,3 +4,4 @@ metadata:
   name: microbank-dev
   labels:
     pod-security.kubernetes.io/enforce: restricted
+    tier: workloads

@@ -9,7 +9,7 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
-          name: microbank-dev
+          kubernetes.io/metadata.name: microbank-dev
     ports:
     - protocol: TCP
       port: 5672

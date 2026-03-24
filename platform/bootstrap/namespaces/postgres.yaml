@@ -4,3 +4,4 @@ metadata:
   name: postgres
   labels:
     pod-security.kubernetes.io/enforce: restricted
+    tier: data

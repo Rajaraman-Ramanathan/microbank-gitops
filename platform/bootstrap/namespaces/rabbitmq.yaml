@@ -4,3 +4,4 @@ metadata:
   name: rabbitmq
   labels:
     pod-security.kubernetes.io/enforce: restricted
+    tier: platform

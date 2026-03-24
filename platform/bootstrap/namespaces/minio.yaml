@@ -4,3 +4,4 @@ metadata:
   name: minio
   labels:
     pod-security.kubernetes.io/enforce: restricted
+    tier: platform

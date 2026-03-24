@@ -1,17 +1,24 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-postgres-from-workloads
+  name: postgres-tier-policy
   namespace: postgres
 spec:
-  podSelector: {}
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: postgresql
+
+  policyTypes:
+  - Ingress
+
   ingress:
   - from:
     - namespaceSelector:
         matchLabels:
-          name: microbank-dev
+          tier: workloads
+    - namespaceSelector:
+        matchLabels:
+          tier: identity
     ports:
     - protocol: TCP
       port: 5432
-  policyTypes:
-  - Ingress

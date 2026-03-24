@@ -4,3 +4,4 @@ metadata:
   name: keycloak
   labels:
     pod-security.kubernetes.io/enforce: restricted
+    tier: identity
