@@ -16,6 +16,9 @@ spec:
     - namespaceSelector:
         matchLabels:
           tier: workloads
+      podSelector:
+        matchLabels:
+          app: document-service
     ports:
     - protocol: TCP
       port: 9000

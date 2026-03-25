@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-services-from-gateway
+  namespace: microbank-dev
+spec:
+  podSelector:
+    matchLabels:
+      tier: workload-service   # label all non-gateway services
+
+  policyTypes:
+  - Ingress
+
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: apigateway
+    ports:
+    - protocol: TCP
+      port: 8080

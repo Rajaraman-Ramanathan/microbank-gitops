@@ -1,0 +1,59 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: workload-tier-policy
+  namespace: microbank-dev
+spec:
+  podSelector:
+    matchLabels:
+      app: apigateway-service
+
+  policyTypes:
+  - Ingress
+  - Egress
+
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          tier: ingress
+    ports:
+    - protocol: TCP
+      port: 8080
+
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          tier: identity
+    ports:
+    - protocol: TCP
+      port: 8080
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          tier: data
+    ports:
+    - protocol: TCP
+      port: 5432
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          tier: platform
+    ports:
+    - protocol: TCP
+      port: 6379
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          tier: platform
+    ports:
+    - protocol: TCP
+      port: 9000
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          tier: platform
+    ports:
+    - protocol: TCP
+      port: 5672
