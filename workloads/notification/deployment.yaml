@@ -3,16 +3,27 @@ kind: Deployment
 metadata:
   name: notification-service
   labels:
-    app: notification-service
+    app.kubernetes.io/name: notification-service
+    app.kubernetes.io/component: worker
+    app.kubernetes.io/part-of: microbank
+    app.kubernetes.io/managed-by: argocd
+    tier: workload
 spec:
   replicas: 1 # DEV
   selector:
     matchLabels:
-      app: notification-service
+      app.kubernetes.io/name: notification-service
   template:
     metadata:
       labels:
-        app: notification-service
+        app.kubernetes.io/name: notification-service
+        app.kubernetes.io/component: worker
+        app.kubernetes.io/part-of: microbank
+        app.kubernetes.io/managed-by: argocd
+        tier: workload
+        network-role: worker
+        access.rabbitmq: "true"
+        access.smtp: "true"
     spec:
       containers:
         - name: notification-service

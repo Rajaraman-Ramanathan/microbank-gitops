@@ -19,10 +19,12 @@ spec:
         app.kubernetes.io/name: auth-service
         app.kubernetes.io/component: backend
         app.kubernetes.io/part-of: microbank
+        app.kubernetes.io/managed-by: argocd
         tier: workload
         network-role: backend
         access.redis: "true"  
         access.rabbitmq: "true"
+        access.postgres: "true"
     spec:
       containers:
         - name: auth-service

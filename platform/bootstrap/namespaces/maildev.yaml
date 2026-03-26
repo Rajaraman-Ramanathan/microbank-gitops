@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: maildev
+  labels:
+    tier: platform
+    env: dev

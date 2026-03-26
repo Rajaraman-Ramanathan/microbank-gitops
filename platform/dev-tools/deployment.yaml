@@ -3,16 +3,26 @@ kind: Deployment
 metadata:
   name: maildev
   labels:
-    app: maildev
+    app.kubernetes.io/name: maildev
+    app.kubernetes.io/component: smtp-server
+    app.kubernetes.io/part-of: microbank-platform
+    app.kubernetes.io/managed-by: argocd
+    tier: platform
+    env: dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: maildev
+      app.kubernetes.io/name: maildev
   template:
     metadata:
       labels:
-        app: maildev
+        app.kubernetes.io/name: maildev
+        app.kubernetes.io/component: smtp-server
+        app.kubernetes.io/part-of: microbank-platform
+        app.kubernetes.io/managed-by: argocd
+        tier: platform
+        network-role: smtp
     spec:
       containers:
       - name: maildev

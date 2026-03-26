@@ -19,8 +19,10 @@ spec:
         app.kubernetes.io/name: account-service
         app.kubernetes.io/component: backend
         app.kubernetes.io/part-of: microbank
+        app.kubernetes.io/managed-by: argocd
         tier: workload
         network-role: backend
+        access.postgres: "true"
     spec:
       containers:
         - name: account-service

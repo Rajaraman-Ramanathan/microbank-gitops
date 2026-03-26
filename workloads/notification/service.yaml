@@ -3,11 +3,14 @@ kind: Service
 metadata:
   name: notification-service
   labels:
-    app: notification-service
+    app.kubernetes.io/name: notification-service
+    app.kubernetes.io/component: worker
+    app.kubernetes.io/part-of: microbank
+    app.kubernetes.io/managed-by: argocd
 spec:
   type: ClusterIP
   selector:
-    app: notification-service
+    app.kubernetes.io/name: notification-service
   ports:
   - name: http
     port: 80

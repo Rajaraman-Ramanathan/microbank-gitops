@@ -3,11 +3,14 @@ kind: Service
 metadata:
   name: document-service
   labels:
-    app: document-service
+    app.kubernetes.io/name: document-service
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: microbank
+    app.kubernetes.io/managed-by: argocd
 spec:
   type: ClusterIP
   selector:
-    app: document-service
+    app.kubernetes.io/name: document-service
   ports:
   - name: http
     port: 80

@@ -3,16 +3,27 @@ kind: Deployment
 metadata:
   name: document-service
   labels:
-    app: document-service
+    app.kubernetes.io/name: document-service
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: microbank
+    app.kubernetes.io/managed-by: argocd
+    tier: workload
 spec:
   replicas: 1 # DEV
   selector:
     matchLabels:
-      app: document-service
+      app.kubernetes.io/name: document-service
   template:
     metadata:
       labels:
-        app: document-service
+        app.kubernetes.io/name: document-service
+        app.kubernetes.io/component: backend
+        app.kubernetes.io/part-of: microbank
+        app.kubernetes.io/managed-by: argocd
+        tier: workload
+        network-role: backend
+        access.postgres: "true"
+        access.minio: "true"
     spec:
       containers:
         - name: document-service
