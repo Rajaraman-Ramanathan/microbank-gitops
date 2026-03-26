@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: minio-tier-policy
+  name: allow-minio-from-workloads
   namespace: minio
 spec:
   podSelector:

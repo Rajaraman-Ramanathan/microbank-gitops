@@ -3,16 +3,26 @@ kind: Deployment
 metadata:
   name: auth-service
   labels:
-    app: auth-service
+    app.kubernetes.io/name: auth-service
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: microbank
+    app.kubernetes.io/managed-by: argocd
+    tier: workload
 spec:
   replicas: 1 # DEV
   selector:
     matchLabels:
-      app: auth-service
+      app.kubernetes.io/name: auth-service
   template:
     metadata:
       labels:
-        app: auth-service
+        app.kubernetes.io/name: auth-service
+        app.kubernetes.io/component: backend
+        app.kubernetes.io/part-of: microbank
+        tier: workload
+        network-role: backend
+        access.redis: "true"  
+        access.rabbitmq: "true"
     spec:
       containers:
         - name: auth-service

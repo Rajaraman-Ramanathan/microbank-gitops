@@ -3,12 +3,17 @@ kind: Service
 metadata:
   name: auth-service
   labels:
-    app: auth-service
+    app.kubernetes.io/name: auth-service
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: microbank
+    app.kubernetes.io/managed-by: argocd
 spec:
   type: ClusterIP
   selector:
-    app: auth-service
+    app.kubernetes.io/name: auth-service
   ports:
   - name: http
+    appProtocol: http
     port: 80
     targetPort: 8081
+    

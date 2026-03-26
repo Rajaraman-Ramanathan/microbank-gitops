@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: account-service
+        tier: workload-service
     spec:
       containers:
         - name: account-service
