@@ -3,6 +3,8 @@ kind: NetworkPolicy
 metadata:
   name: allow-services-from-gateway
   namespace: microbank-dev
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
 spec:
   podSelector:
     matchLabels:

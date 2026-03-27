@@ -3,6 +3,8 @@ kind: NetworkPolicy
 metadata:
   name: allow-redis-from-workloads
   namespace: redis
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
 spec:
   podSelector:
     matchLabels:

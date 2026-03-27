@@ -3,6 +3,8 @@ kind: NetworkPolicy
 metadata:
   name: allow-rabbitmq-from-workloads
   namespace: rabbitmq
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
 spec:
   podSelector:
     matchLabels:

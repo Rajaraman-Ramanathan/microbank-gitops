@@ -3,6 +3,8 @@ kind: NetworkPolicy
 metadata:
   name: allow-postgres-from-workloads
   namespace: postgres
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
 spec:
   podSelector:
     matchLabels:

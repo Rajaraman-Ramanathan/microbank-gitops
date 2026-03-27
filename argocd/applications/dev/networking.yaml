@@ -3,8 +3,7 @@ kind: Application
 metadata:
   name: networking-dev
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "5"
+  # sync wave annotations configured in such a way that baseline policies are applied before allow policies
 spec:
   project: platform
   source:
