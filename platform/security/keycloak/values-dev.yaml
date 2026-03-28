@@ -44,6 +44,10 @@ extraEnvFrom: |
   - configMapRef:
       name: keycloak-config
 
+podLabels:
+  network-role: identity
+  tier: identity
+
 podSecurityContext:
   runAsNonRoot: true
   runAsUser: 1000

@@ -1,17 +1,17 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-apigateway-from-ingress
-  namespace: microbank-dev
+  name: allow-keycloak-from-ingress
+  namespace: keycloak
   annotations:
     argocd.argoproj.io/sync-wave: "6"
 spec:
   podSelector:
     matchLabels:
-      app: gateway
+      network-role: identity
 
   policyTypes:
-  - Ingress
+    - Ingress
 
   ingress:
   - from:
@@ -20,4 +20,4 @@ spec:
           tier: ingress
     ports:
     - protocol: TCP
-      port: 8123
+      port: 8080
