@@ -8,16 +8,18 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      tier: workload-service   # label all non-gateway services
+      network-role: backend   # label all non-gateway services
 
   policyTypes:
   - Ingress
 
   ingress:
   - from:
-    - podSelector:
+    - namespaceSelector:
         matchLabels:
-          app: apigateway
+          tier: workloads
+      podSelector:
+        matchLabels:
+          network-role: gateway
     ports:
     - protocol: TCP
-      port: 8080
