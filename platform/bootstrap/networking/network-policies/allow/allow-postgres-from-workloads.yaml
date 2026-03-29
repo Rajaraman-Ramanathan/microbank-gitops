@@ -8,7 +8,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: postgresql
+      network-role: data
 
   policyTypes:
   - Ingress

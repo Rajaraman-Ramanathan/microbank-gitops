@@ -45,6 +45,10 @@ extraEnvFrom: |
       name: keycloak-config
 
 podLabels:
+  app.kubernetes.io/name: keycloak
+  app.kubernetes.io/component: identity
+  app.kubernetes.io/part-of: microbank
+  app.kubernetes.io/managed-by: argocd
   network-role: identity
   tier: identity
 

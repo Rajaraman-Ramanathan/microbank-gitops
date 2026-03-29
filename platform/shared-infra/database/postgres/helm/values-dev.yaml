@@ -15,6 +15,13 @@ postgresql:
         memory: 512Mi
       limits:
         memory: 1Gi
+    podLabels:
+      app.kubernetes.io/name: postgresql
+      app.kubernetes.io/component: database
+      app.kubernetes.io/part-of: microbank
+      app.kubernetes.io/managed-by: argocd
+      network-role: data
+      tier: data
     initdb:
       scriptsConfigMap: postgres-initdb
     containerSecurityContext:
