@@ -8,7 +8,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: app.kubernetes.io/name=redis
+      app.kubernetes.io/name: redis
 
   policyTypes:
   - Ingress
@@ -20,7 +20,7 @@ spec:
           tier: workloads
       podSelector:
         matchLabels:
-          app: auth-service
+          access.redis: "true"
     ports:
     - protocol: TCP
       port: 6379
