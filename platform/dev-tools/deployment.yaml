@@ -22,7 +22,6 @@ spec:
         app.kubernetes.io/component: smtp-server
         app.kubernetes.io/part-of: microbank-platform
         app.kubernetes.io/managed-by: argocd
-        tier: platform
         network-role: platform
     spec:
       containers:

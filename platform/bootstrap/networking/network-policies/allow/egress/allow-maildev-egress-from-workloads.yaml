@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-maildev-egress-from-workloads
+  namespace: microbank-dev
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
+spec:
+  podSelector:
+    matchLabels:
+      network-role: backend
+
+  policyTypes:
+  - Egress
+
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          tier: platform
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: maildev
+    ports:
+    - protocol: TCP
+      port: 1025

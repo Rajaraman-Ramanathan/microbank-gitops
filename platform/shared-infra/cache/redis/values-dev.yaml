@@ -13,7 +13,6 @@ master:
     app.kubernetes.io/part-of: microbank
     app.kubernetes.io/managed-by: argocd
     network-role: platform
-    tier: platform
   resources:
     requests:
       memory: 256Mi
