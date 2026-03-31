@@ -18,6 +18,9 @@ spec:
     - namespaceSelector:
         matchLabels:
           tier: ingress
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: ingress-nginx
     ports:
     - protocol: TCP
       port: 8080
