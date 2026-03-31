@@ -20,7 +20,6 @@ spec:
         app.kubernetes.io/component: backend
         app.kubernetes.io/part-of: microbank
         app.kubernetes.io/managed-by: argocd
-        tier: workloads
         network-role: backend
         access.postgres: "true"
         access.keycloak: "true"

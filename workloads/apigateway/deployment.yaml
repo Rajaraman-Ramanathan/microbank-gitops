@@ -20,7 +20,6 @@ spec:
         app.kubernetes.io/component: gateway
         app.kubernetes.io/part-of: microbank
         app.kubernetes.io/managed-by: argocd
-        tier: workloads
         network-role: gateway
         access.keycloak: "true"
     spec:
