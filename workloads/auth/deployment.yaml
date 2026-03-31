@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/component: backend
     app.kubernetes.io/part-of: microbank
     app.kubernetes.io/managed-by: argocd
-    tier: workload
+    tier: workloads
 spec:
   replicas: 1 # DEV
   selector:
@@ -20,11 +20,12 @@ spec:
         app.kubernetes.io/component: backend
         app.kubernetes.io/part-of: microbank
         app.kubernetes.io/managed-by: argocd
-        tier: workload
+        tier: workloads
         network-role: backend
         access.redis: "true"  
         access.rabbitmq: "true"
         access.postgres: "true"
+        access.keycloak: "true"
     spec:
       containers:
         - name: auth-service

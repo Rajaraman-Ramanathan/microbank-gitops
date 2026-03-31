@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/component: gateway
     app.kubernetes.io/part-of: microbank
     app.kubernetes.io/managed-by: argocd
-    tier: workload
+    tier: workloads
 spec:
   replicas: 1 # DEV: single replica
   selector:
@@ -20,8 +20,9 @@ spec:
         app.kubernetes.io/component: gateway
         app.kubernetes.io/part-of: microbank
         app.kubernetes.io/managed-by: argocd
-        tier: workload
+        tier: workloads
         network-role: gateway
+        access.keycloak: "true"
     spec:
       containers:
         - name: apigateway-service

@@ -8,30 +8,20 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: keycloak
+      network-role: identity
 
   policyTypes:
   - Ingress
-  - Egress
 
   ingress:
   - from:
     - namespaceSelector:
         matchLabels:
           tier: workloads
-    - namespaceSelector:
+      podSelector:
         matchLabels:
-          tier: ingress
+          access.keycloak: "true"
     ports:
     - protocol: TCP
       port: 8080
-
-  egress:
-  - to:
-    - namespaceSelector:
-        matchLabels:
-          tier: data
-    ports:
-    - protocol: TCP
-      port: 5432
   
