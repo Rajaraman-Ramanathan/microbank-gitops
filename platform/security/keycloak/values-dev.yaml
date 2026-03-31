@@ -50,7 +50,6 @@ podLabels:
   app.kubernetes.io/part-of: microbank
   app.kubernetes.io/managed-by: argocd
   network-role: identity
-  tier: identity
 
 podSecurityContext:
   runAsNonRoot: true

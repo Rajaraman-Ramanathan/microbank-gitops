@@ -20,6 +20,7 @@ spec:
           tier: platform
       podSelector:
         matchLabels:
+          network-role: platform
           app.kubernetes.io/name: maildev
     ports:
     - protocol: TCP
