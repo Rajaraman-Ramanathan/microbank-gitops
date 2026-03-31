@@ -8,6 +8,7 @@ metadata:
     app.kubernetes.io/part-of: microbank-platform
     app.kubernetes.io/managed-by: argocd
     tier: platform
+    network-role: platform
     env: dev
 spec:
   replicas: 1
@@ -22,7 +23,7 @@ spec:
         app.kubernetes.io/part-of: microbank-platform
         app.kubernetes.io/managed-by: argocd
         tier: platform
-        network-role: smtp
+        network-role: platform
     spec:
       containers:
       - name: maildev

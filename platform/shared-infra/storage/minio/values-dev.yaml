@@ -10,6 +10,14 @@ persistence:
 image:
   tag: latest
 
+podLabels:
+  app.kubernetes.io/name: minio
+  app.kubernetes.io/component: storage
+  app.kubernetes.io/part-of: microbank
+  app.kubernetes.io/managed-by: argocd
+  network-role: platform
+  tier: platform
+
 resources:
   requests:
     cpu: 200m

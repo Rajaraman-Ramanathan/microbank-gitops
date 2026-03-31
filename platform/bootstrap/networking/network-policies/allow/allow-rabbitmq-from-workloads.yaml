@@ -8,7 +8,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: app.kubernetes.io/name=rabbitmq
+      app.kubernetes.io/name: rabbitmq
   
   policyTypes:
   - Ingress
@@ -20,13 +20,7 @@ spec:
           tier: workloads
       podSelector:
         matchLabels:
-          app: transaction-service
-    - namespaceSelector:
-        matchLabels:
-          tier: workloads
-      podSelector:
-        matchLabels:
-          app: auth-service
+          access.rabbitmq: "true"
     ports:
     - protocol: TCP
       port: 5672
@@ -34,6 +28,9 @@ spec:
     - namespaceSelector:
         matchLabels:
           tier: ingress
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: ingress-nginx
     ports:
     - protocol: TCP
       port: 15672

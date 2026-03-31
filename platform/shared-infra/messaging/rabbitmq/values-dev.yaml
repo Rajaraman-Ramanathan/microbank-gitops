@@ -11,6 +11,14 @@ image:
 persistence:
   enabled: false
 
+podLabels:
+  app.kubernetes.io/name: rabbitmq
+  app.kubernetes.io/component: messaging
+  app.kubernetes.io/part-of: microbank
+  app.kubernetes.io/managed-by: argocd
+  network-role: platform
+  tier: platform
+
 resources:
   requests:
     cpu: 150m

@@ -1,14 +1,14 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-minio-from-workloads
-  namespace: minio
+  name: allow-maildev-from-workloads
+  namespace: maildev
   annotations:
     argocd.argoproj.io/sync-wave: "6"
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: minio
+      app.kubernetes.io/name: maildev
 
   policyTypes:
   - Ingress
@@ -20,10 +20,10 @@ spec:
           tier: workloads
       podSelector:
         matchLabels:
-          access.minio: "true"
+          access.smtp: "true"
     ports:
     - protocol: TCP
-      port: 9000
+      port: 1025
   - from:
     - namespaceSelector:
         matchLabels:
@@ -33,5 +33,4 @@ spec:
           app.kubernetes.io/name: ingress-nginx
     ports:
     - protocol: TCP
-      port: 9001
-  
+      port: 1080

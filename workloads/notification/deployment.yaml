@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/component: worker
     app.kubernetes.io/part-of: microbank
     app.kubernetes.io/managed-by: argocd
-    tier: workload
+    tier: workloads
 spec:
   replicas: 1 # DEV
   selector:
@@ -20,7 +20,7 @@ spec:
         app.kubernetes.io/component: worker
         app.kubernetes.io/part-of: microbank
         app.kubernetes.io/managed-by: argocd
-        tier: workload
+        tier: workloads
         network-role: worker
         access.rabbitmq: "true"
         access.smtp: "true"
