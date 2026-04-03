@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-gateway-egress-to-workloads
+  namespace: microbank-dev
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
+spec:
+  podSelector:
+    matchLabels:
+      network-role: gateway
+
+  policyTypes:
+  - Egress
+
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          network-role: backend
+          exposed-via-gateway: "true"
+    ports:
+    - protocol: TCP
+      port: 8081
+    - protocol: TCP
+      port: 8082
+    - protocol: TCP
+      port: 8083

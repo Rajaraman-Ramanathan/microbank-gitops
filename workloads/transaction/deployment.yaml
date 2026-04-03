@@ -24,6 +24,7 @@ spec:
         access.postgres: "true"
         access.rabbitmq: "true"
         access.keycloak: "true"
+        exposed-via-gateway: "true"
     spec:
       containers:
         - name: transaction-service

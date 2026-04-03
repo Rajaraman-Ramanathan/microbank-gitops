@@ -23,6 +23,7 @@ spec:
         network-role: backend
         access.postgres: "true"
         access.keycloak: "true"
+        exposed-via-gateway: "true"
     spec:
       containers:
         - name: account-service
