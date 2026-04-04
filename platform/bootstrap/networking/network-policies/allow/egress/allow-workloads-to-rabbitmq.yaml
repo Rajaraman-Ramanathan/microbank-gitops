@@ -1,28 +1,27 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-gateway-egress-to-workloads
+  name: allow-workloads-to-rabbitmq
   namespace: microbank-dev
   annotations:
     argocd.argoproj.io/sync-wave: "6"
 spec:
   podSelector:
     matchLabels:
-      network-role: gateway
+      network-role: backend
 
   policyTypes:
   - Egress
 
   egress:
   - to:
-    - podSelector:
+    - namespaceSelector:
         matchLabels:
-          network-role: backend
-          exposed-via-gateway: "true"
+          tier: platform
+      podSelector:
+        matchLabels:
+          network-role: platform
+          app.kubernetes.io/name: rabbitmq
     ports:
     - protocol: TCP
-      port: 8081
-    - protocol: TCP
-      port: 8082
-    - protocol: TCP
-      port: 8083
+      port: 5672

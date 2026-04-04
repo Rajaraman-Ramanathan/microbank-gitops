@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-minio-egress-from-workloads
+  name: allow-workloads-to-maildev
   namespace: microbank-dev
   annotations:
     argocd.argoproj.io/sync-wave: "6"
@@ -21,7 +21,7 @@ spec:
       podSelector:
         matchLabels:
           network-role: platform
-          app.kubernetes.io/name: minio
+          app.kubernetes.io/name: maildev
     ports:
     - protocol: TCP
-      port: 9000
+      port: 1025
