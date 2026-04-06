@@ -27,6 +27,7 @@ spec:
       podSelector:
         matchLabels:
           network-role: identity
+          app.kubernetes.io/name: keycloak
     ports:
     - protocol: TCP
       port: 5432

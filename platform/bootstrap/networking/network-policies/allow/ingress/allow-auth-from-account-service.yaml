@@ -6,6 +6,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
+      network-role: backend
       app.kubernetes.io/name: auth-service
 
   policyTypes:
@@ -15,7 +16,8 @@ spec:
   - from:
     - podSelector:
         matchLabels:
+          network-role: backend
           app.kubernetes.io/name: account-service
     ports:
     - protocol: TCP
-      port: 8082
+      port: 8081

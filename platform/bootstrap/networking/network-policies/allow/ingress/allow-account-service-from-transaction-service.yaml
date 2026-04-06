@@ -1,10 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-account-to-auth-service
+  name: allow-account-service-from-transaction-service
   namespace: microbank-dev
-  annotations:
-    argocd.argoproj.io/sync-wave: "6"
 spec:
   podSelector:
     matchLabels:
@@ -12,14 +10,14 @@ spec:
       app.kubernetes.io/name: account-service
 
   policyTypes:
-  - Egress
+  - Ingress
 
-  egress:
-  - to:
+  ingress:
+  - from:
     - podSelector:
         matchLabels:
           network-role: backend
-          app.kubernetes.io/name: auth-service
+          app.kubernetes.io/name: transaction-service
     ports:
     - protocol: TCP
-      port: 8081
+      port: 8082
