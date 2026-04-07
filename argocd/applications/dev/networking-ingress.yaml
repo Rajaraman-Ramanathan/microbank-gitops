@@ -3,7 +3,8 @@ kind: Application
 metadata:
   name: networking-ingress-dev
   namespace: argocd
-  # sync wave annotations configured in such a way that baseline policies are applied before allow policies
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
 spec:
   project: platform
   source:

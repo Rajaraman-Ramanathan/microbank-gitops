@@ -3,6 +3,8 @@ kind: NetworkPolicy
 metadata:
   name: allow-account-service-from-transaction-service
   namespace: microbank-dev
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
 spec:
   podSelector:
     matchLabels:
