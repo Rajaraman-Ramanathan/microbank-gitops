@@ -1,19 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: workloads-dev
+  name: networking-ingress-dev
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "7"
+  # sync wave annotations configured in such a way that baseline policies are applied before allow policies
 spec:
-  project: workloads
+  project: platform
   source:
     repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
     targetRevision: dev
-    path: workloads
+    path: platform/bootstrap/networking/ingress
   destination:
     server: https://kubernetes.default.svc
-    namespace: microbank-dev
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true

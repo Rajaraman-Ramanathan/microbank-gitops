@@ -1,15 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: networking-dev
+  name: networking-policies-stage
   namespace: argocd
   # sync wave annotations configured in such a way that baseline policies are applied before allow policies
 spec:
   project: platform
   source:
     repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
-    targetRevision: dev
-    path: platform/bootstrap/networking
+    targetRevision: stage
+    path: platform/bootstrap/networking/network-policies
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
