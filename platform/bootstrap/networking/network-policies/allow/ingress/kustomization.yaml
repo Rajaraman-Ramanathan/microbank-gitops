@@ -2,10 +2,16 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
+  - allow-apigateway-from-ingress.yaml
+  - allow-keycloak-from-ingress.yaml
+  - allow-account-service-from-transaction-service.yaml
+  - allow-document-service-from-transaction-service.yaml
+  - allow-auth-service-from-transaction-service.yaml
+  - allow-auth-from-account-service.yaml
   - allow-keycloak-from-workloads.yaml
+  - allow-maildev-from-workloads.yaml
   - allow-minio-from-workloads.yaml
   - allow-postgres-from-workloads.yaml
   - allow-rabbitmq-from-workloads.yaml
   - allow-redis-from-workloads.yaml
   - allow-services-from-gateway.yaml
-  - allow-apigateway-from-ingress.yaml
