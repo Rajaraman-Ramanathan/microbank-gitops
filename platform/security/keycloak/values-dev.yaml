@@ -42,7 +42,7 @@ extraEnv: |
   - name: KC_HEALTH_ENABLED
     value: "true"
 
-startupProbe:
+startupProbe: |
   httpGet:
     path: /health
     port: 8080
@@ -51,7 +51,7 @@ startupProbe:
   failureThreshold: 60
   periodSeconds: 10
 
-livenessProbe:
+livenessProbe: |
   httpGet:
     path: /health/live
     port: http
@@ -60,7 +60,7 @@ livenessProbe:
   failureThreshold: 5
   periodSeconds: 10
 
-readinessProbe:
+readinessProbe: |
   httpGet:
     path: /health/ready
     port: http
