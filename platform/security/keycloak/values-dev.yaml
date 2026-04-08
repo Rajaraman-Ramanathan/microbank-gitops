@@ -39,8 +39,6 @@ extraEnv: |
     value: keycloakuser
   - name: KC_DB_PASSWORD
     value: keycloakpass
-  - name: KC_HEALTH_ENABLED
-    value: "true"
 
 startupProbe: |
   httpGet:
