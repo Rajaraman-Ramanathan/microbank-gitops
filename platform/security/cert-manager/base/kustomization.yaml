@@ -1,0 +1,4 @@
+resources:
+  - clusterissuer-selfsigned.yaml
+  - root-ca-cert.yaml
+  - clusterissuer-ca.yaml
