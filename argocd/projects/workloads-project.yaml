@@ -11,7 +11,7 @@ spec:
 
   destinations:
   - namespace: microbank-*
-    server: https://kubernetes.default.svc
+    server: https://microbank-dev-control-plane:6443
 
   # Workloads MUST NOT create cluster-scoped resources
   clusterResourceBlacklist:

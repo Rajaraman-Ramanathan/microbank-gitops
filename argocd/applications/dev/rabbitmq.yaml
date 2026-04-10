@@ -19,7 +19,7 @@ spec:
     targetRevision: dev
     ref: values
   destination:
-    server: https://kubernetes.default.svc
+    server: https://microbank-dev-control-plane:6443
     namespace: rabbitmq
   syncPolicy:
     automated:

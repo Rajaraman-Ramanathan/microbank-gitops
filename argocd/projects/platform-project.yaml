@@ -13,7 +13,7 @@ spec:
 
   destinations:
   - namespace: '*'
-    server: https://kubernetes.default.svc
+    server: https://microbank-dev-control-plane:6443
 
   clusterResourceWhitelist:
   - group: '*'
