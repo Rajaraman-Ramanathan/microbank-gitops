@@ -10,7 +10,7 @@ spec:
     targetRevision: dev
     path: argocd/applications/dev
   destination:
-    server: https://microbank-dev-control-plane:6443
+    server: https://kubernetes.default.svc
     namespace: argocd
   syncPolicy:
     automated:
