@@ -4,7 +4,7 @@ metadata:
   name: default-deny-postgres
   namespace: postgres
   annotations:
-    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-wave: "6"
 spec:
   podSelector: {}
   policyTypes:

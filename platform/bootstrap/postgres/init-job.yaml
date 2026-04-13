@@ -1,0 +1,104 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: postgres-init-job
+  namespace: postgres
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: psql
+          image: postgres:15
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-postgresql
+                  key: password
+          command:
+            - sh
+            - -c
+            - |
+              echo "Waiting for Postgres..."
+              until pg_isready -h postgres-postgresql -p 5432 -U platformadmin; do
+                sleep 2
+              done
+
+              echo "Running DB bootstrap..."
+
+              psql -h postgres-postgresql -U platformadmin <<'EOF'
+
+              -- Create databases (idempotent)
+              SELECT 'CREATE DATABASE accountdb'
+              WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'accountdb')\gexec
+
+              SELECT 'CREATE DATABASE authdb'
+              WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'authdb')\gexec
+
+              SELECT 'CREATE DATABASE transactiondb'
+              WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'transactiondb')\gexec
+
+              SELECT 'CREATE DATABASE documentdb'
+              WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'documentdb')\gexec
+
+              SELECT 'CREATE DATABASE keycloakdb'
+              WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'keycloakdb')\gexec
+
+
+              -- Create users (idempotent)
+              DO $$
+              BEGIN
+                IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'accountuser') THEN
+                  CREATE USER accountuser WITH PASSWORD 'accountpass';
+                END IF;
+              END
+              $$;
+
+              DO $$
+              BEGIN
+                IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'authuser') THEN
+                  CREATE USER authuser WITH PASSWORD 'authpass';
+                END IF;
+              END
+              $$;
+
+              DO $$
+              BEGIN
+                IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'transactionuser') THEN
+                  CREATE USER transactionuser WITH PASSWORD 'transactionpass';
+                END IF;
+              END
+              $$;
+
+              DO $$
+              BEGIN
+                IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'documentuser') THEN
+                  CREATE USER documentuser WITH PASSWORD 'documentpass';
+                END IF;
+              END
+              $$;
+
+              DO $$
+              BEGIN
+                IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'keycloakuser') THEN
+                  CREATE USER keycloakuser WITH PASSWORD 'keycloakpass';
+                END IF;
+              END
+              $$;
+
+
+              -- Grants (safe to re-run)
+              GRANT ALL PRIVILEGES ON DATABASE accountdb TO accountuser;
+              GRANT ALL PRIVILEGES ON DATABASE authdb TO authuser;
+              GRANT ALL PRIVILEGES ON DATABASE transactiondb TO transactionuser;
+              GRANT ALL PRIVILEGES ON DATABASE documentdb TO documentuser;
+              GRANT ALL PRIVILEGES ON DATABASE keycloakdb TO keycloakuser;
+
+              EOF
+
+              echo "DB bootstrap completed successfully"
