@@ -13,7 +13,7 @@ spec:
     path: platform/bootstrap/networking/ingress
   destination:
     server: https://microbank-dev-control-plane:6443
-    namespace: argocd
+    namespace: ingress-nginx
   syncPolicy:
     automated:
       prune: true
