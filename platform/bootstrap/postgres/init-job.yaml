@@ -24,14 +24,17 @@ spec:
             - sh
             - -c
             - |
-              echo "Waiting for Postgres..."
-              until pg_isready -h postgres-postgresql -p 5432 -U platformadmin; do
+              set -e
+              set -o pipefail
+
+              echo "Waiting for Postgres to be fully ready..."
+              until psql -h postgres-postgresql -U platformadmin -d platform -c '\q' >/dev/null 2>&1; do
                 sleep 2
               done
 
               echo "Running DB bootstrap..."
 
-              psql -v ON_ERROR_STOP=1 -h postgres-postgresql -U platformadmin <<'EOF'
+              psql -v ON_ERROR_STOP=1 -h postgres-postgresql -U platformadmin -d postgres <<'EOF'
 
               -- Create databases (idempotent)
               SELECT 'CREATE DATABASE accountdb'
@@ -98,6 +101,22 @@ spec:
               GRANT ALL PRIVILEGES ON DATABASE transactiondb TO transactionuser;
               GRANT ALL PRIVILEGES ON DATABASE documentdb TO documentuser;
               GRANT ALL PRIVILEGES ON DATABASE keycloakdb TO keycloakuser;
+
+              \connect keycloakdb
+              GRANT ALL ON SCHEMA public TO keycloakuser;
+              ALTER SCHEMA public OWNER TO keycloakuser;
+              \connect accountdb
+              GRANT ALL ON SCHEMA public TO accountuser;
+              ALTER SCHEMA public OWNER TO accountuser;
+              \connect authdb
+              GRANT ALL ON SCHEMA public TO authuser;
+              ALTER SCHEMA public OWNER TO authuser;
+              \connect transactiondb
+              GRANT ALL ON SCHEMA public TO transactionuser;
+              ALTER SCHEMA public OWNER TO transactionuser;
+              \connect documentdb
+              GRANT ALL ON SCHEMA public TO documentuser;
+              ALTER SCHEMA public OWNER TO documentuser;
 
               EOF
 
