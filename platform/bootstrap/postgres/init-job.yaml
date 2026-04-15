@@ -5,7 +5,7 @@ metadata:
   namespace: postgres
   annotations:
     argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    # argocd.argoproj.io/hook-delete-policy: HookSucceeded
 spec:
   backoffLimit: 3
   template:
@@ -31,7 +31,7 @@ spec:
 
               echo "Running DB bootstrap..."
 
-              psql -h postgres-postgresql -U platformadmin <<'EOF'
+              psql -v ON_ERROR_STOP=1 -h postgres-postgresql -U platformadmin <<'EOF'
 
               -- Create databases (idempotent)
               SELECT 'CREATE DATABASE accountdb'
