@@ -13,7 +13,6 @@ spec:
     path: platform/bootstrap/namespaces
   destination:
     server: https://microbank-dev-control-plane:6443
-    namespace: argocd
   syncPolicy:
     automated:
       prune: true
