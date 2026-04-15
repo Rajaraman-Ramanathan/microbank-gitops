@@ -11,9 +11,18 @@ spec:
   template:
     spec:
       restartPolicy: OnFailure
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: psql
-          image: postgres:15
+          image: bitnami/postgresql:15
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
           env:
             - name: PGPASSWORD
               valueFrom:
@@ -93,6 +102,12 @@ spec:
                 END IF;
               END
               $$;
+
+              ALTER DATABASE accountdb OWNER TO accountuser;
+              ALTER DATABASE authdb OWNER TO authuser;
+              ALTER DATABASE transactiondb OWNER TO transactionuser;
+              ALTER DATABASE documentdb OWNER TO documentuser;
+              ALTER DATABASE keycloakdb OWNER TO keycloakuser;
 
 
               -- Grants (safe to re-run)
