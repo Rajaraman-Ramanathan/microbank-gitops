@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: networking-policies-stage
+  name: network-policies-stage
   namespace: argocd
   # sync wave annotations configured in such a way that baseline policies are applied before allow policies
 spec:

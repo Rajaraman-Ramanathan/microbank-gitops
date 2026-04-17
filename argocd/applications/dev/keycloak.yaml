@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
     targetRevision: dev
-    path: platform/shared-infra/keycloak/base/helm
+    path: platform/shared-infra/keycloak/helm
     helm:
       releaseName: keycloak
       valueFiles:

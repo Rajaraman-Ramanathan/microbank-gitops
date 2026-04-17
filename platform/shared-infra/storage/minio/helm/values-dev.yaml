@@ -1,34 +1,40 @@
-architecture: standalone
+minio:
+  mode: standalone
 
-auth:
-  enabled: true
-  password: devpassword
+  auth:
+    rootUser: devminio
+    rootPassword: devminiopassword
 
-master:
   persistence:
     enabled: false
+
+  image:
+    tag: latest
+
   podLabels:
-    app.kubernetes.io/name: redis
-    app.kubernetes.io/component: cache
+    app.kubernetes.io/name: minio
+    app.kubernetes.io/component: storage
     app.kubernetes.io/part-of: microbank
     app.kubernetes.io/managed-by: argocd
     network-role: platform
+
   resources:
     requests:
+      cpu: 200m
       memory: 256Mi
-      cpu: 100m
     limits:
       memory: 512Mi
+
   containerSecurityContext:
     enabled: true
     runAsNonRoot: true
     allowPrivilegeEscalation: false
 
-service:
-  type: ClusterIP
+  service:
+    type: ClusterIP
 
-networkPolicy:
-  enabled: false
+  networkPolicy:
+    enabled: false
 
-metrics:
-  enabled: true
+  metrics:
+    enabled: true

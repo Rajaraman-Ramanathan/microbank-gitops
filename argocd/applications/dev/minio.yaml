@@ -7,17 +7,14 @@ metadata:
     argocd.argoproj.io/sync-wave: "2"
 spec:
   project: platform
-  sources:
-  - repoURL: https://charts.bitnami.com/bitnami
-    chart: minio
-    targetRevision: 17.0.1
+  source:
+    repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
+    targetRevision: dev
+    path: platform/shared-infra/storage/minio/helm
     helm:
       releaseName: minio
       valueFiles:
-        - $values/platform/shared-infra/storage/minio/values-dev.yaml
-  - repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
-    targetRevision: dev
-    ref: values
+        - values-dev.yaml
   destination:
     server: https://microbank-dev-control-plane:6443
     namespace: minio

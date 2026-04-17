@@ -1,22 +1,17 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: microbank-ingress
+  name: keycloak-ingress
   labels:
-    app.kubernetes.io/name: microbank-ingress
+    app.kubernetes.io/name: keycloak-ingress
     app.kubernetes.io/component: routing
     app.kubernetes.io/part-of: microbank
   annotations:
     kubernetes.io/ingress.class: nginx
-    cert-manager.io/cluster-issuer: microbank-ca
 spec:
   ingressClassName: nginx
-  tls:
-  - hosts:
-    - auth.microbank.local
-    secretName: keycloak-tls-secret
   rules:
-  - host: auth.microbank.local
+  - host: PLACEHOLDER_HOST
     http:
       paths:
       - path: /
