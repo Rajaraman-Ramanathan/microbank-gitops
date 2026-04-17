@@ -1,0 +1,14 @@
+resources:
+  - ../../../platform/networking/ingress/base
+
+patches:
+  - target:
+      kind: Ingress
+      name: keycloak-ingress
+    patch: |
+      - op: replace
+        path: /spec/rules/0/host
+        value: auth.microbank.local
+      - op: replace
+        path: /spec/tls/0/hosts/0
+        value: auth.microbank.local

@@ -16,7 +16,7 @@ spec:
           installCRDs: true
     - repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
       targetRevision: stage
-      path: platform/security/cert-manager/base
+      path: environments/dev/platform/security/cert-manager
   destination:
     server: https://kubernetes.default.svc
     namespace: cert-manager
