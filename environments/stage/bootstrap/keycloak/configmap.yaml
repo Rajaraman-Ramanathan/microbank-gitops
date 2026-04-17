@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-config
+data:
+  KC_HTTP_ENABLED: "true"
+  KC_HOSTNAME: "auth.microbank.local"
+  KC_HOSTNAME_STRICT: "false"
+  KC_HEALTH_ENABLED: "true"
+  KC_PROXY: edge
