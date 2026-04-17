@@ -7,17 +7,14 @@ metadata:
     argocd.argoproj.io/sync-wave: "5"
 spec:
   project: platform
-  sources:
-  - repoURL: https://codecentric.github.io/helm-charts
-    chart: keycloak                               
-    targetRevision: 18.10.0 
+  source:
+    repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
+    targetRevision: dev
+    path: platform/shared-infra/keycloak/base/helm
     helm:
       releaseName: keycloak
       valueFiles:
-        - $values/platform/security/keycloak/values-dev.yaml
-  - repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
-    targetRevision: dev
-    ref: values
+        - values-dev.yaml
   destination:
     server: https://microbank-dev-control-plane:6443
     namespace: keycloak
