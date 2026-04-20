@@ -1,0 +1,8 @@
+kind: Role
+metadata:
+  name: redis-admin
+  namespace: redis
+rules:
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["*"]

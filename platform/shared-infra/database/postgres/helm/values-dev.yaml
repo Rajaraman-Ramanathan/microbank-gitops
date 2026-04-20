@@ -1,4 +1,8 @@
 postgresql:
+  serviceAccount:
+    create: false
+    name: postgres-sa
+
   architecture: standalone
 
   auth:

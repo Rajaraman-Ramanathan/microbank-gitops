@@ -1,4 +1,8 @@
 minio:
+  serviceAccount:
+    create: false
+    name: minio-sa
+    
   mode: standalone
 
   auth:

@@ -1,0 +1,11 @@
+kind: RoleBinding
+metadata:
+  name: rabbitmq-binding
+  namespace: rabbitmq
+subjects:
+  - kind: ServiceAccount
+    name: rabbitmq-sa
+roleRef:
+  kind: Role
+  name: rabbitmq-admin
+  apiGroup: rbac.authorization.k8s.io

@@ -1,0 +1,8 @@
+kind: Role
+metadata:
+  name: rabbitmq-admin
+  namespace: rabbitmq
+rules:
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["*"]

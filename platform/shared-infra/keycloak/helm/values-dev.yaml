@@ -1,4 +1,8 @@
 keycloak:
+  serviceAccount:
+    create: false
+    name: keycloak-sa
+  
   replicas: 1
 
   image:

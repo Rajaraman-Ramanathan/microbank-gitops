@@ -1,0 +1,8 @@
+kind: Role
+metadata:
+  name: keycloak-admin
+  namespace: keycloak
+rules:
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["*"]

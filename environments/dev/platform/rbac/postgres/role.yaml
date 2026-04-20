@@ -1,0 +1,8 @@
+kind: Role
+metadata:
+  name: postgres-admin
+  namespace: postgres
+rules:
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["*"]

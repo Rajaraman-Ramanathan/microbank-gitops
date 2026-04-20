@@ -1,4 +1,8 @@
 redis:
+  serviceAccount:
+    create: false
+    name: redis-sa
+    
   architecture: standalone
 
   auth:

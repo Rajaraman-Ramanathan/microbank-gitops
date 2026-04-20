@@ -1,0 +1,8 @@
+kind: Role
+metadata:
+  name: minio-admin
+  namespace: minio
+rules:
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["*"]

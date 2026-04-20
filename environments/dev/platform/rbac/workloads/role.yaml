@@ -1,0 +1,8 @@
+kind: Role
+metadata:
+  name: workloads-admin
+  namespace: microbank-dev
+rules:
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["*"]

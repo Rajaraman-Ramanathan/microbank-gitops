@@ -1,4 +1,8 @@
 rabbitmq:
+  serviceAccount:
+    create: false
+    name: rabbitmq-sa
+
   auth:
     username: devuser
     password: devpassword

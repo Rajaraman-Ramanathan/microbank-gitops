@@ -1,0 +1,11 @@
+kind: RoleBinding
+metadata:
+  name: workloads-binding
+  namespace: microbank-dev
+subjects:
+  - kind: ServiceAccount
+    name: workloads-sa
+roleRef:
+  kind: Role
+  name: workloads-admin
+  apiGroup: rbac.authorization.k8s.io
