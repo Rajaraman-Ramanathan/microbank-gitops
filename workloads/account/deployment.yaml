@@ -25,6 +25,41 @@ spec:
         access.keycloak: "true"
         exposed-via-gateway: "true"
     spec:
+      initContainers:
+        - name: flyway-migrate
+          image: 65486509/account-flyway:latest
+          command:
+            - sh
+            - -c
+            - |
+              echo "Waiting for DB..."
+              until pg_isready -h postgres-postgresql.postgres.svc.cluster.local; do
+                sleep 2
+              done
+
+              flyway \
+                -url=$(DB_URL) \
+                -user=$(DB_USER) \
+                -password=$(DB_PASSWORD) \
+                -baselineOnMigrate=true \
+                migrate
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: account-service-secret
+                  key: SPRING_DATASOURCE_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: account-service-secret
+                  key: SPRING_DATASOURCE_PASSWORD
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: account-service-config
+                  key: SPRING_DATASOURCE_URL
+            
       containers:
         - name: account-service
           image: 65486509/account-service:1.0.34

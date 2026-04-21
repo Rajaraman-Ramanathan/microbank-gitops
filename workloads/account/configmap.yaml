@@ -10,6 +10,5 @@ metadata:
 data:
   SPRING_PROFILES_ACTIVE: docker
   SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-postgresql.postgres.svc.cluster.local:5432/accountdb
-  SPRING_DATASOURCE_USERNAME: accountuser
   SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
   SERVER_PORT: "8082"
