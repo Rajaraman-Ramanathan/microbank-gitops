@@ -1,12 +1,14 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: postgres-init-sql
+  name: postgres-init-db-script
   namespace: postgres
 data:
   init.sql: |
-    -- Account DB
-    CREATE DATABASE accountdb;
+    -- =========================
+    -- USERS (create first)
+    -- =========================
+
     DO $$
     BEGIN
       IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'accountuser') THEN
@@ -14,10 +16,7 @@ data:
       END IF;
     END
     $$;
-    GRANT ALL PRIVILEGES ON DATABASE accountdb TO accountuser;
 
-    -- Auth DB
-    CREATE DATABASE authdb;
     DO $$
     BEGIN
       IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'authuser') THEN
@@ -25,10 +24,7 @@ data:
       END IF;
     END
     $$;
-    GRANT ALL PRIVILEGES ON DATABASE authdb TO authuser;
 
-    -- transaction DB
-    CREATE DATABASE transactiondb;
     DO $$
     BEGIN
       IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'transactionuser') THEN
@@ -36,10 +32,7 @@ data:
       END IF;
     END
     $$;
-    GRANT ALL PRIVILEGES ON DATABASE transactiondb TO transactionuser;
 
-    -- document DB
-    CREATE DATABASE documentdb;
     DO $$
     BEGIN
       IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'documentuser') THEN
@@ -47,4 +40,28 @@ data:
       END IF;
     END
     $$;
+
+    -- =========================
+    -- DATABASES (safe create)
+    -- =========================
+
+    SELECT 'CREATE DATABASE accountdb OWNER accountuser'
+    WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'accountdb')\gexec
+
+    SELECT 'CREATE DATABASE authdb OWNER authuser'
+    WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'authdb')\gexec
+
+    SELECT 'CREATE DATABASE transactiondb OWNER transactionuser'
+    WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'transactiondb')\gexec
+
+    SELECT 'CREATE DATABASE documentdb OWNER documentuser'
+    WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'documentdb')\gexec
+
+    -- =========================
+    -- GRANTS (safe re-run)
+    -- =========================
+
+    GRANT ALL PRIVILEGES ON DATABASE accountdb TO accountuser;
+    GRANT ALL PRIVILEGES ON DATABASE authdb TO authuser;
+    GRANT ALL PRIVILEGES ON DATABASE transactiondb TO transactionuser;
     GRANT ALL PRIVILEGES ON DATABASE documentdb TO documentuser;
