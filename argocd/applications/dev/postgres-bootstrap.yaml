@@ -13,7 +13,7 @@ spec:
     path: environments/dev/bootstrap/postgres
   destination:
     server: https://microbank-dev-control-plane:6443
-    namespace: keycloak
+    namespace: postgres
   syncPolicy:
     automated:
       prune: true
