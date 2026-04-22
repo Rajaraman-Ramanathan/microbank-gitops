@@ -10,7 +10,6 @@ metadata:
 data:
   SPRING_PROFILES_ACTIVE: docker
   SPRING_RABBITMQ_HOST: rabbitmq.rabbitmq.svc.cluster.local
-  SPRING_RABBITMQ_USERNAME: devuser
   SPRING_RABBITMQ_PORT: "5672"
   SPRING_MAIL_HOST: maildev
   SPRING_MAIL_PORT: "1025"

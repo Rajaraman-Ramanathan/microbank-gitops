@@ -10,7 +10,6 @@ metadata:
 data:
   SPRING_PROFILES_ACTIVE: docker
   SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-postgresql.postgres.svc.cluster.local:5432/authdb
-  SPRING_DATASOURCE_USERNAME: authuser
   SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
   SPRING_DATA_REDIS_HOST: redis-master.redis.svc.cluster.local
   SPRING_DATA_REDIS_PORT: "6379"

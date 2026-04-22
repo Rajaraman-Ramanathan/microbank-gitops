@@ -10,7 +10,6 @@ metadata:
 data:
   SPRING_PROFILES_ACTIVE: docker
   SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-postgresql.postgres.svc.cluster.local:5432/transactiondb
-  SPRING_DATASOURCE_USERNAME: transactionuser
   SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
   SPRING_RABBITMQ_HOST: rabbitmq.rabbitmq.svc.cluster.local
   SPRING_RABBITMQ_PORT: "5672"
