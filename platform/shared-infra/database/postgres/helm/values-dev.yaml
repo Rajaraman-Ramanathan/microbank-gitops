@@ -34,8 +34,7 @@ postgresql:
     networkPolicy:
       enabled: false
     initdb:
-      scriptsConfigMap:
-        name: postgres-init-db-script
+      scriptsConfigMap: postgres-init-db-script
 
   metrics:
     enabled: true
