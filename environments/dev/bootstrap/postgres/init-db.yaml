@@ -45,17 +45,10 @@ data:
     -- DATABASES (safe create)
     -- =========================
 
-    SELECT 'CREATE DATABASE accountdb OWNER accountuser'
-    WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'accountdb')\gexec
-
-    SELECT 'CREATE DATABASE authdb OWNER authuser'
-    WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'authdb')\gexec
-
-    SELECT 'CREATE DATABASE transactiondb OWNER transactionuser'
-    WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'transactiondb')\gexec
-
-    SELECT 'CREATE DATABASE documentdb OWNER documentuser'
-    WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'documentdb')\gexec
+    CREATE DATABASE accountdb OWNER accountuser;
+    CREATE DATABASE authdb OWNER authuser;
+    CREATE DATABASE transactiondb OWNER transactionuser;
+    CREATE DATABASE documentdb OWNER documentuser;
 
     -- =========================
     -- GRANTS (safe re-run)
