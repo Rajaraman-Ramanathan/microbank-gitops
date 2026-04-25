@@ -3,6 +3,8 @@ set -euo pipefail
 
 echo "Starting database creation..."
 
+export PGPASSWORD="$(cat /opt/bitnami/postgresql/secrets/password)"
+
 # Always connect to postgres DB for CREATE DATABASE
 DB="postgres"
 USER="${POSTGRES_USER}"
