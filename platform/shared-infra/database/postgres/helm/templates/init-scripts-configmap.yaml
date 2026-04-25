@@ -4,7 +4,10 @@ metadata:
   name: postgres-init-db-script
 data:
 {{- $files := .Files.Glob "files/init-scripts/*" }}
+{{- if not $files }}
+  dummy: "no files found"
+{{- end }}
 {{- range $path, $file := $files }}
   {{ base $path }}: |
-{{ $file | indent 4 }}
+{{ $file | toString | indent 4 }}
 {{- end }}
