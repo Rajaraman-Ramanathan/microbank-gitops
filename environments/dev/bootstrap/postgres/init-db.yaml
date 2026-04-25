@@ -41,6 +41,14 @@ data:
     END
     $$;
 
+    DO $$
+    BEGIN
+      IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'keycloakuser') THEN
+        CREATE USER keycloakuser WITH PASSWORD 'keycloakpass';
+      END IF;
+    END
+    $$;
+
     -- =========================
     -- DATABASES (safe create)
     -- =========================
@@ -49,6 +57,7 @@ data:
     CREATE DATABASE authdb OWNER authuser;
     CREATE DATABASE transactiondb OWNER transactionuser;
     CREATE DATABASE documentdb OWNER documentuser;
+    CREATE DATABASE keycloakdb OWNER keycloakuser;
 
     -- =========================
     -- GRANTS (safe re-run)
@@ -58,3 +67,4 @@ data:
     GRANT ALL PRIVILEGES ON DATABASE authdb TO authuser;
     GRANT ALL PRIVILEGES ON DATABASE transactiondb TO transactionuser;
     GRANT ALL PRIVILEGES ON DATABASE documentdb TO documentuser;
+    GRANT ALL PRIVILEGES ON DATABASE keycloakdb TO keycloakuser;
