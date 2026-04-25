@@ -18,8 +18,9 @@ create_db () {
   EXISTS=$(psql -U "$USER" -d "$DB" -tAc "SELECT 1 FROM pg_database WHERE datname='${db_name}'")
 
   if [ "$EXISTS" != "1" ]; then
-    echo "Creating database: $db_name with owner: $db_owner"
-    psql -U "$USER" -d "$DB" -c "CREATE DATABASE ${db_name} OWNER ${db_owner};"
+    echo "Creating database: $db_name"
+    psql -U "$USER" -d "$DB" -c "CREATE DATABASE ${db_name};"
+    psql -U "$USER" -d "$DB" -c "ALTER DATABASE ${db_name} OWNER TO ${db_owner};"
   else
     echo "Database $db_name already exists"
   fi
