@@ -5,7 +5,7 @@ metadata:
 data:
   bootstrap.sh: |
     #!/bin/bash
-    set -euo pipefail
+    set -euxo pipefail
 
     HOST="postgres-postgresql.postgres.svc.cluster.local"
     USER="platformadmin"
@@ -13,15 +13,30 @@ data:
     export PGPASSWORD="$POSTGRES_PASSWORD"
 
     echo "Waiting for Postgres..."
+
+    MAX_WAIT=120
+    WAITED=0
     
     # checking network readiness
     until pg_isready -h "$HOST" -U "$USER"; do
       sleep 2
+      WAITED=$((WAITED+2))
+      if [[ $WAITED -ge $MAX_WAIT ]]; then
+        echo "Timeout waiting for pg_isready"
+        exit 1
+      fi
     done
 
+    WAITED=0
+
     # checking DB readiness
-    until psql -h "$HOST" -U "$USER" -d postgres -c "SELECT 1" >/dev/null 2>&1; do
+    until (psql -h "$HOST" -U "$USER" -d postgres -c "SELECT 1" >/dev/null 2>&1); do
       sleep 2
+      WAITED=$((WAITED+2))
+      if [[ $WAITED -ge $MAX_WAIT ]]; then
+        echo "Timeout waiting for DB readiness"
+        exit 1
+      fi
     done
 
     echo "Postgres ready"
@@ -36,7 +51,7 @@ data:
       EXISTS=$(psql -h "$HOST" -U "$USER" -d postgres -tAc \
         "SELECT 1 FROM pg_roles WHERE rolname='${role}'")
 
-      if [ "$EXISTS" != "1" ]; then
+      if [[ "$EXISTS" != "1" ]]; then
         echo "Creating role: $role"
         psql -h "$HOST" -U "$USER" -d postgres -c \
           "CREATE ROLE ${role} LOGIN PASSWORD '${pass}'"
@@ -55,7 +70,7 @@ data:
       EXISTS=$(psql -h "$HOST" -U "$USER" -d postgres -tAc \
         "SELECT 1 FROM pg_database WHERE datname='${db}'")
 
-      if [ "$EXISTS" != "1" ]; then
+      if [[ "$EXISTS" != "1" ]]; then
         echo "Creating DB: $db"
         psql -h "$HOST" -U "$USER" -d postgres -c \
           "CREATE DATABASE ${db} OWNER ${owner}"
