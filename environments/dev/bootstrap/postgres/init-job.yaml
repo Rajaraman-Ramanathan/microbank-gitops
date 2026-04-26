@@ -24,6 +24,8 @@ spec:
             capabilities:
               drop:
                 - ALL
+            seccompProfile:
+              type: RuntimeDefault
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:
