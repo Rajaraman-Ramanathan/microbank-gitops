@@ -33,8 +33,6 @@ postgresql:
       type: ClusterIP
     networkPolicy:
       enabled: false
-    initdb:
-      scriptsConfigMap: postgres-init-db-script
 
   metrics:
     enabled: true
