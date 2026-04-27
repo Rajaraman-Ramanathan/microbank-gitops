@@ -12,9 +12,6 @@ minio:
   persistence:
     enabled: false
 
-  image:
-    tag: latest
-
   podLabels:
     app.kubernetes.io/name: minio
     app.kubernetes.io/component: storage
