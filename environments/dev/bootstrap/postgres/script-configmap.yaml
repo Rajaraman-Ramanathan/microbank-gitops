@@ -8,7 +8,7 @@ data:
     set -euxo pipefail
 
     HOST="postgres-postgresql.postgres.svc.cluster.local"
-    USER="platformadmin"
+    USER="postgres"
 
     export PGPASSWORD="$POSTGRES_PASSWORD"
 
