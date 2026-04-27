@@ -1,41 +1,90 @@
-minio:
-  serviceAccount:
-    create: false
-    name: minio-sa
-    
-  mode: standalone
+serviceAccount:
+  create: false
+  name: minio-sa
 
-  auth:
-    rootUser: devminio
-    rootPassword: devminiopassword
+mode: standalone
 
-  persistence:
-    enabled: false
+replicas: 1
 
-  podLabels:
-    app.kubernetes.io/name: minio
-    app.kubernetes.io/component: storage
-    app.kubernetes.io/part-of: microbank
-    app.kubernetes.io/managed-by: argocd
-    network-role: platform
+image:
+  repository: quay.io/minio/minio
+  tag: RELEASE.2024-12-18T13-15-44Z
+  pullPolicy: IfNotPresent
 
-  resources:
-    requests:
-      cpu: 200m
-      memory: 256Mi
-    limits:
-      memory: 512Mi
+rootUser: devminio
+rootPassword: devminiopassword
 
-  containerSecurityContext:
-    enabled: true
-    runAsNonRoot: true
-    allowPrivilegeEscalation: false
+persistence:
+  enabled: false
 
-  service:
-    type: ClusterIP
+podLabels:
+  app.kubernetes.io/name: minio
+  app.kubernetes.io/component: storage
+  app.kubernetes.io/part-of: microbank
+  app.kubernetes.io/managed-by: argocd
+  network-role: platform
 
-  networkPolicy:
-    enabled: false
+service:
+  type: ClusterIP
+  port: 9000
+  targetPort: 9000
 
-  metrics:
+consoleService:
+  type: ClusterIP
+  port: 9001
+  targetPort: 9001
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 256Mi
+  limits:
+    memory: 512Mi
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+
+tls:
+  enabled: false
+
+etcd:
+  endpoints: []
+  clientCert: ""
+  clientCertKey: ""
+
+podDisruptionBudget:
+  enabled: false
+
+ingress:
+  enabled: false
+
+consoleIngress:
+  enabled: false
+
+deploymentUpdate:
+  type: RollingUpdate
+  maxUnavailable: 0
+  maxSurge: 100%
+
+oidc:
+  enabled: false
+
+mountPath: "/export"
+
+trustedCertsSecret: ""
+
+minioAPIPort: "9000"
+minioConsolePort: "9001"
+
+networkPolicy:
+  enabled: false
+
+metrics:
+  serviceMonitor:
     enabled: true
