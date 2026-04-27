@@ -42,13 +42,21 @@ resources:
     memory: 512Mi
 
 securityContext:
+  enabled: true
   runAsNonRoot: true
   runAsUser: 1000
   runAsGroup: 1000
   fsGroup: 1000
 
 containerSecurityContext:
+  enabled: true
   allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: false
+  capabilities:
+    drop:
+      - ALL
+  seccompProfile:
+    type: RuntimeDefault
 
 tls:
   enabled: false
