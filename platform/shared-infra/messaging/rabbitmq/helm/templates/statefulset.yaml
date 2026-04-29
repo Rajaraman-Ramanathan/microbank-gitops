@@ -32,6 +32,11 @@ spec:
 {{- end }}
 
           env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+
             - name: RABBITMQ_DEFAULT_USER
               valueFrom:
                 secretKeyRef:
@@ -54,7 +59,7 @@ spec:
               value: "true"
 
             - name: RABBITMQ_NODENAME
-              value: "rabbit@$(HOSTNAME).rabbitmq"
+              value: "rabbit@$(POD_NAME).rabbitmq"
 
             - name: RABBITMQ_CLUSTER_PARTITION_HANDLING
               value: "autoheal"
