@@ -32,6 +32,9 @@ spec:
 {{- end }}
 
           env:
+            - name: RABBITMQ_USE_LONGNAME
+              value: false
+
             - name: RABBITMQ_DEFAULT_USER
               valueFrom:
                 secretKeyRef:
