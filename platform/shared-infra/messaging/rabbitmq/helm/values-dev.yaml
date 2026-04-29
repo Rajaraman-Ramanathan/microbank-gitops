@@ -46,4 +46,4 @@ securityContext:
     type: RuntimeDefault
 
 metrics:
-  enabled: true
+  enabled: false
