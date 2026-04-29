@@ -46,4 +46,6 @@ securityContext:
     type: RuntimeDefault
 
 metrics:
-  enabled: false
+  enabled: true
+  serviceMonitor:
+    enabled: false
