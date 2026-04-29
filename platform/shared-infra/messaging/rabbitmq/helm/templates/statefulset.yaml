@@ -101,6 +101,12 @@ spec:
             timeoutSeconds: 5
             failureThreshold: 6
 
+      {{- if not .Values.persistence.enabled }}
+      volumes:
+        - name: data
+          emptyDir: {}
+      {{- end }}
+
 {{- if .Values.persistence.enabled }}
   volumeClaimTemplates:
     - metadata:
@@ -110,10 +116,4 @@ spec:
         resources:
           requests:
             storage: {{ .Values.persistence.size }}
-{{- else }}
-  template:
-    spec:
-      volumes:
-        - name: data
-          emptyDir: {}
 {{- end }}
