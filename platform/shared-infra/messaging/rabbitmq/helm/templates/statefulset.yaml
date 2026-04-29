@@ -59,7 +59,7 @@ spec:
               value: "true"
 
             - name: RABBITMQ_NODENAME
-              value: "rabbit@$(POD_NAME).rabbitmq"
+              value: "rabbit@$(POD_NAME).rabbitmq.rabbitmq.svc.cluster.local"
 
             - name: RABBITMQ_CLUSTER_PARTITION_HANDLING
               value: "autoheal"
