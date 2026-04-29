@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rabbitmq
+spec:
+  serviceName: rabbitmq
+  replicas: {{ .Values.replicaCount }}
+
+  selector:
+    matchLabels:
+      app: rabbitmq
+
+  template:
+    metadata:
+      labels:
+        app: rabbitmq 
+{{ toYaml .Values.podLabels | indent 8 }}
+
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+
+      containers:
+        - name: rabbitmq
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          ports:
+            - containerPort: 5672
+            - containerPort: 15672
+{{- if .Values.metrics.enabled }}
+            - containerPort: 15692
+{{- end }}
+
+          env:
+            - name: RABBITMQ_DEFAULT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq
+                  key: username
+
+            - name: RABBITMQ_DEFAULT_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq
+                  key: password
+
+            - name: RABBITMQ_ERLANG_COOKIE
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq
+                  key: erlang-cookie
+
+            - name: RABBITMQ_USE_LONGNAME
+              value: "true"
+
+            - name: RABBITMQ_NODENAME
+              value: "rabbit@$(HOSTNAME).rabbitmq"
+
+            - name: RABBITMQ_CLUSTER_PARTITION_HANDLING
+              value: "autoheal"
+
+            {{- if .Values.metrics.enabled }}
+            - name: RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS
+              value: >
+                -rabbit peer_discovery_backend rabbit_peer_discovery_k8s
+                -rabbitmq_prometheus return_per_object_metrics true
+            {{- else }}
+            - name: RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS
+              value: "-rabbit peer_discovery_backend rabbit_peer_discovery_k8s"
+            {{- end }}
+
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/rabbitmq
+
+          resources: {{ toYaml .Values.resources | nindent 12 }}
+
+          securityContext: {{ toYaml .Values.securityContext | nindent 12 }}
+
+          readinessProbe:
+            httpGet:
+              path: /api/health/checks/alarms
+              port: 15672
+              httpHeaders:
+                - name: Authorization
+                  value: Basic {{ printf "%s:%s" .Values.auth.username .Values.auth.password | b64enc }}
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+
+          livenessProbe:
+            httpGet:
+              path: /api/health/checks/alarms
+              port: 15672
+              httpHeaders:
+                - name: Authorization
+                  value: Basic {{ printf "%s:%s" .Values.auth.username .Values.auth.password | b64enc }}
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+
+{{- if .Values.persistence.enabled }}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: {{ .Values.persistence.size }}
+{{- else }}
+  template:
+    spec:
+      volumes:
+        - name: data
+          emptyDir: {}
+{{- end }}
