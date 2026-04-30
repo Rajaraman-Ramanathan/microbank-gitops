@@ -33,7 +33,7 @@ spec:
 
           env:
             - name: RABBITMQ_USE_LONGNAME
-              value: false
+              value: "false"
 
             - name: RABBITMQ_DEFAULT_USER
               valueFrom:
