@@ -61,6 +61,18 @@ spec:
 
           securityContext: {{ toYaml .Values.securityContext | nindent 12 }}
 
+          startupProbe:
+            httpGet:
+              path: /api/health/checks/alarms
+              port: 15672
+              httpHeaders:
+                - name: Authorization
+                  value: Basic {{ printf "%s:%s" .Values.auth.username .Values.auth.password | b64enc }}
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 60
+
           readinessProbe:
             httpGet:
               path: /api/health/checks/alarms
@@ -69,9 +81,9 @@ spec:
                 - name: Authorization
                   value: Basic {{ printf "%s:%s" .Values.auth.username .Values.auth.password | b64enc }}
             initialDelaySeconds: 20
-            periodSeconds: 10
+            periodSeconds: 5
             timeoutSeconds: 5
-            failureThreshold: 6
+            failureThreshold: 30
 
           livenessProbe:
             httpGet:
@@ -80,10 +92,10 @@ spec:
               httpHeaders:
                 - name: Authorization
                   value: Basic {{ printf "%s:%s" .Values.auth.username .Values.auth.password | b64enc }}
-            initialDelaySeconds: 60
-            periodSeconds: 10
+            initialDelaySeconds: 20
+            periodSeconds: 5
             timeoutSeconds: 5
-            failureThreshold: 6
+            failureThreshold: 30
 
       {{- if not .Values.persistence.enabled }}
       volumes:
