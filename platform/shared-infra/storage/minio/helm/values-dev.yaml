@@ -85,6 +85,8 @@ oidc:
 
 mountPath: "/export"
 
+certsPath: /tmp/certs
+
 trustedCertsSecret: ""
 
 minioAPIPort: "9000"
