@@ -50,7 +50,7 @@ keycloak:
       path: /health
       port: 8080
     initialDelaySeconds: 30
-    timeoutSeconds: 3
+    timeoutSeconds: 5
     failureThreshold: 60
     periodSeconds: 10
 
@@ -59,9 +59,9 @@ keycloak:
       path: /health/live
       port: http
     initialDelaySeconds: 60
-    timeoutSeconds: 5
+    timeoutSeconds: 6
     failureThreshold: 5
-    periodSeconds: 10
+    periodSeconds: 15
 
   readinessProbe: |
     httpGet:
