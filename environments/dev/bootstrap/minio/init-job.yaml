@@ -11,6 +11,10 @@ spec:
   template:
     spec:
       restartPolicy: OnFailure
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        fsGroup: 1001
       containers:
         - name: minio-bootstrap
           image: quay.io/minio/mc:RELEASE.2025-04-16T18-13-26Z
