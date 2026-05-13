@@ -1,7 +1,8 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: postgres-bootstrap
+  name: minio-bootstrap
+  namespace: minio
   annotations:
     argocd.argoproj.io/hook: Sync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
@@ -10,14 +11,12 @@ spec:
   template:
     spec:
       restartPolicy: OnFailure
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1001
-        fsGroup: 1001
       containers:
-        - name: bootstrap
-          image: bitnami/postgresql:latest
-          command: ["/bin/bash", "/scripts/bootstrap.sh"]
+        - name: minio-bootstrap
+          image: quay.io/minio/mc:RELEASE.2025-04-16T18-13-26Z
+          command:
+            - /bin/bash
+            - /scripts/init-minio.sh
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
@@ -27,11 +26,16 @@ spec:
             seccompProfile:
               type: RuntimeDefault
           env:
-            - name: POSTGRES_PASSWORD
+            - name: MINIO_ROOT_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-postgresql
-                  key: postgres-password
+                  name: minio
+                  key: root-user
+            - name: MINIO_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: minio
+                  key: root-password
           resources:
             requests:
               cpu: "100m"
@@ -39,14 +43,10 @@ spec:
             limits:
               memory: "256Mi"
           volumeMounts:
-            - name: tmp
-              mountPath: /tmp
             - name: script
               mountPath: /scripts
       volumes:
-        - name: tmp
-          emptyDir: {}
         - name: script
           configMap:
-            name: postgres-init-script
+            name: minio-bootstrap-script
             defaultMode: 0755
