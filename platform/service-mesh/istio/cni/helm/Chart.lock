@@ -1,0 +1,6 @@
+dependencies:
+- name: cni
+  repository: file://charts/cni
+  version: 1.26.0
+digest: sha256:04adeb73e70eb86a155ee2cc463ae12f323f56839e43cfae236636e3377c32be
+generated: "2026-05-16T11:41:02.0109373+05:30"

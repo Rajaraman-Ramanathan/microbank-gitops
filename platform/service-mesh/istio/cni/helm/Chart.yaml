@@ -1,0 +1,10 @@
+apiVersion: v2
+name: istio-cni-wrapper
+description: Enterprise Istio CNI Wrapper
+type: application
+version: 1.0.0
+
+dependencies:
+  - name: cni
+    version: 1.26.0
+    repository: "file://charts/cni"
