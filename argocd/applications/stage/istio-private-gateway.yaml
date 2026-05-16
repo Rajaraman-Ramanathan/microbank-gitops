@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: istiod
+  name: istio-private-gateway
   namespace: argocd
 spec:
   project: platform
   source:
     repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
     targetRevision: stage
-    path: platform/service-mesh/istio/control-plane/helm
+    path: platform/service-mesh/istio/gateways/private/helm
     helm:
       valueFiles:
       - values-stage.yaml

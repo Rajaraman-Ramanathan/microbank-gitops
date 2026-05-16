@@ -1,0 +1,10 @@
+apiVersion: v2
+name: istio-private-gateway-wrapper
+description: Enterprise Private Gateway
+type: application
+version: 1.0.0
+
+dependencies:
+  - name: gateway
+    version: 1.26.0
+    repository: "file://charts/gateway"
