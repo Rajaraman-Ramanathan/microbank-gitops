@@ -52,5 +52,5 @@ spec:
       volumes:
         - name: script
           configMap:
-            name: minio-bootstrap-script
+            name: minio-init-script
             defaultMode: 0755
