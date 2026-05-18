@@ -48,8 +48,12 @@ spec:
           volumeMounts:
             - name: script
               mountPath: /scripts
+            - name: mc-config
+              mountPath: /.mc
       volumes:
         - name: script
           configMap:
             name: minio-init-script
             defaultMode: 0755
+        - name: mc-config
+          emptyDir: {}
