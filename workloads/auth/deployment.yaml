@@ -27,6 +27,7 @@ spec:
         access.keycloak: "true"
         exposed-via-gateway: "true"
     spec:
+      serviceAccountName: auth-service-sa
       containers:
         - name: auth-service
           image: 65486509/auth-service:1.0.34

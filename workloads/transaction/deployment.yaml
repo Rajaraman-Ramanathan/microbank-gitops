@@ -26,6 +26,7 @@ spec:
         access.keycloak: "true"
         exposed-via-gateway: "true"
     spec:
+      serviceAccountName: transaction-service-sa
       containers:
         - name: transaction-service
           image: 65486509/transaction-service:1.0.34

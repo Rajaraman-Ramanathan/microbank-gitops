@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/managed-by: argocd
     tier: workloads
 spec:
-  replicas: 1 # DEV
+  replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: document-service
@@ -25,6 +25,7 @@ spec:
         access.minio: "true"
         access.keycloak: "true"
     spec:
+      serviceAccountName: document-service-sa
       containers:
         - name: document-service
           image: 65486509/document-service:1.0.34

@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - serviceaccounts/apigateway-service-sa.yaml
+  - serviceaccounts/auth-service-sa.yaml
+  - serviceaccounts/account-service-sa.yaml
+  - serviceaccounts/document-service-sa.yaml
+  - serviceaccounts/transaction-service-sa.yaml
+  - serviceaccounts/notification-service-sa.yaml

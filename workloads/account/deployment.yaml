@@ -24,7 +24,8 @@ spec:
         access.postgres: "true"
         access.keycloak: "true"
         exposed-via-gateway: "true"
-    spec:        
+    spec:
+      serviceAccountName: account-service-sa        
       containers:
         - name: account-service
           image: 65486509/account-service:1.0.34
