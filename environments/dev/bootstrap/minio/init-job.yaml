@@ -33,12 +33,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: minio
-                  key: root-user
+                  key: rootUser
             - name: MINIO_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: minio
-                  key: root-password
+                  key: rootPassword
           resources:
             requests:
               cpu: "100m"
