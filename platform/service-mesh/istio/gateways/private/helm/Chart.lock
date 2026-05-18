@@ -1,0 +1,6 @@
+dependencies:
+- name: gateway
+  repository: file://charts/gateway
+  version: 1.26.0
+digest: sha256:04d11791c03a0393e41f0a4a883e4e39e00055992d652004fc6c64b1341fcd87
+generated: "2026-05-16T17:03:44.1810729+05:30"

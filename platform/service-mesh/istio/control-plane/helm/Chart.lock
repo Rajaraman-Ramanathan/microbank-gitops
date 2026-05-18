@@ -1,0 +1,6 @@
+dependencies:
+- name: istiod
+  repository: file://charts/istiod
+  version: 1.26.0
+digest: sha256:d2c702ce9f4bc1c05fd8281e63acce053c65907840042d060ff65c8c279eae44
+generated: "2026-05-16T12:50:55.0203492+05:30"

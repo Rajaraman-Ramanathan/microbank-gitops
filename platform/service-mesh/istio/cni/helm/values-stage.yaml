@@ -1,0 +1,23 @@
+profile: ambient
+
+excludeNamespaces:
+  - kube-system
+  - istio-system
+
+cni:
+  logLevel: info
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+tolerations:
+- operator: Exists
+
+podAnnotations:
+  cluster-autoscaler.kubernetes.io/safe-to-evict: "true"

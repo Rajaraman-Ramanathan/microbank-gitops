@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istio-private-gateway
+  namespace: argocd
+spec:
+  project: platform
+  source:
+    repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
+    targetRevision: stage
+    path: platform/service-mesh/istio/gateways/private/helm
+    helm:
+      valueFiles:
+      - values-stage.yaml
+  destination:
+    name: eks-stage
+    namespace: istio-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true

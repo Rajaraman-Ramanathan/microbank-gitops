@@ -1,0 +1,10 @@
+apiVersion: v2
+name: istiod-wrapper
+description: Enterprise Istio Control Plane
+type: application
+version: 1.0.0
+
+dependencies:
+  - name: istiod
+    version: 1.26.0
+    repository: "file://charts/istiod"

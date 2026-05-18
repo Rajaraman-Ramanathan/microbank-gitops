@@ -1,0 +1,16 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-mesh-traffic
+  namespace: workloads
+spec:
+  rules:
+  - from:
+    - source:
+        principals:
+        - cluster.local/ns/workloads/sa/apigateway-service
+        - cluster.local/ns/workloads/sa/auth-service
+        - cluster.local/ns/workloads/sa/account-service
+        - cluster.local/ns/workloads/sa/transaction-service
+        - cluster.local/ns/workloads/sa/document-service
+        - cluster.local/ns/workloads/sa/notification-service
