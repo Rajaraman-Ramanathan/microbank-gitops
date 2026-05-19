@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-keycloak-from-workloads
+  namespace: keycloak
+  annotations:
+    argocd.argoproj.io/sync-wave: "7"
+spec:
+  podSelector:
+    matchLabels:
+      network-role: identity
+
+  policyTypes:
+  - Ingress
+
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          tier: workloads
+      podSelector:
+        matchLabels:
+          access.keycloak: "true"
+    ports:
+    - protocol: TCP
+      port: 8080
+  

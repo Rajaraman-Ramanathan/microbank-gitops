@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/managed-by: argocd
     tier: workloads
 spec:
-  replicas: 1 # DEV
+  replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: auth-service

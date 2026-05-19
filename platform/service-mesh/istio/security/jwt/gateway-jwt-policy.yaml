@@ -1,0 +1,15 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: gateway-jwt-required
+  namespace: apigateway-service
+spec:
+  selector:
+    matchLabels:
+      app: apigateway-service
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        requestPrincipals:
+        - "*"

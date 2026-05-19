@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-maildev-from-workloads
+  namespace: maildev
+  annotations:
+    argocd.argoproj.io/sync-wave: "7"
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: maildev
+
+  policyTypes:
+  - Ingress
+
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          tier: workloads
+      podSelector:
+        matchLabels:
+          access.smtp: "true"
+    ports:
+    - protocol: TCP
+      port: 1025
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          tier: ingress
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: 1080

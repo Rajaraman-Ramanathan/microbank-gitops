@@ -1,0 +1,13 @@
+apiVersion: security.istio.io/v1
+kind: RequestAuthentication
+metadata:
+  name: keycloak-jwt
+  namespace: apigateway-service
+spec:
+  selector:
+    matchLabels:
+      app: apigateway-service
+  jwtRules:
+  - issuer: "https://auth.microbank.com/realms/microbank"
+    jwksUri: "https://auth.microbank.com/realms/microbank/protocol/openid-connect/certs"
+    forwardOriginalToken: true

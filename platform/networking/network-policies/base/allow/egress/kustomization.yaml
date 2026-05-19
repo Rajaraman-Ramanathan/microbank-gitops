@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - allow-dns-egress-data.yaml
+  - allow-dns-egress-identity.yaml
+  - allow-dns-egress-maildev.yaml
+  - allow-dns-egress-minio.yaml
+  - allow-dns-egress-rabbitmq.yaml
+  - allow-dns-egress-redis.yaml
+  - allow-dns-egress-workloads.yaml
+  - allow-gateway-to-keycloak.yaml
+  - allow-gateway-to-workloads.yaml
+  - allow-keycloak-to-postgres.yaml
+  - allow-workloads-to-keycloak.yaml
+  - allow-workloads-to-maildev.yaml
+  - allow-workloads-to-minio.yaml
+  - allow-workloads-to-postgres.yaml
+  - allow-workloads-to-rabbitmq.yaml
+  - allow-workloads-to-redis.yaml
+  - allow-transaction-service-to-account-service.yaml
+  - allow-transaction-service-to-document-service.yaml
+  - allow-transaction-service-to-auth-service.yaml
+  - allow-account-to-auth-service.yaml
