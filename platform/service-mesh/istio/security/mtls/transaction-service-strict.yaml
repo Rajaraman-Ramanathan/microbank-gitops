@@ -1,0 +1,8 @@
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  name: transaction-service-default
+  namespace: transaction-service
+spec:
+  mtls:
+    mode: STRICT

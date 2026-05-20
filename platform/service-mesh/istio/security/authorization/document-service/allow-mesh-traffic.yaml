@@ -1,0 +1,12 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-mesh-traffic
+  namespace: document-service
+spec:
+  rules:
+  - from:
+    - source:
+        principals:
+        - cluster.local/ns/document-service/sa/apigateway-service
+        

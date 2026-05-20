@@ -1,0 +1,8 @@
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  name: apigateway-service-default
+  namespace: apigateway-service
+spec:
+  mtls:
+    mode: STRICT

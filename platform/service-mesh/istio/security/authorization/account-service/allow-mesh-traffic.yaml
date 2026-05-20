@@ -1,0 +1,13 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-mesh-traffic
+  namespace: account-service
+spec:
+  rules:
+  - from:
+    - source:
+        principals:
+        - cluster.local/ns/account-service/sa/apigateway-service
+        - cluster.local/ns/account-service/sa/transaction-service
+        
