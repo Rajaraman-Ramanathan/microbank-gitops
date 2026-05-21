@@ -21,7 +21,7 @@ spec:
         app.kubernetes.io/part-of: microbank
         app.kubernetes.io/managed-by: argocd
         network-role: backend
-        access.redis: "true"  
+        access.redis: "true"
         access.rabbitmq: "true"
         access.postgres: "true"
         access.keycloak: "true"
@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: auth-service
-          image: 65486509/auth-service:1.0.34
+          image: 65486509/auth-service:1.0.36
           imagePullPolicy: Always
           ports:
             - containerPort: 8081
