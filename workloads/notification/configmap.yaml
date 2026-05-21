@@ -11,7 +11,7 @@ data:
   SPRING_PROFILES_ACTIVE: docker
   SPRING_RABBITMQ_HOST: rabbitmq.rabbitmq.svc.cluster.local
   SPRING_RABBITMQ_PORT: "5672"
-  SPRING_MAIL_HOST: maildev
+  SPRING_MAIL_HOST: maildev.maildev.svc.cluster.local
   SPRING_MAIL_PORT: "1025"
   SENDER_EMAIL: no-reply@microbank.co
   SERVER_PORT: "8085"
