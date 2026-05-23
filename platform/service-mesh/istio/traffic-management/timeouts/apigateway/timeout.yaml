@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: apigateway-timeout
+  namespace: apigateway-service
+spec:
+  hosts:
+    - api.microbank.com
+  gateways:
+    - public-gateway
+  http:
+  - timeout: 10s
+    route:
+    - destination:
+        host: apigateway-service.apigateway-service.svc.cluster.local

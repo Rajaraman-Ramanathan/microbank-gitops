@@ -1,0 +1,25 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: apigateway-public
+  namespace: apigateway-service
+spec:
+  gateways:
+    - public-gateway
+  hosts:
+    - api.microbank.com
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: apigateway-service.apigateway-service.svc.cluster.local
+        port:
+          number: 8080
+      weight: 100
+    timeout: 10s
+    retries:
+      attempts: 3
+      perTryTimeout: 3s
+      retryOn: gateway-error,connect-failure,refused-stream,5xx
