@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- account-service/default.yaml
+- auth-service/default.yaml
+- transaction-service/default.yaml
+- document-service/default.yaml
+- apigateway-service/default.yaml
