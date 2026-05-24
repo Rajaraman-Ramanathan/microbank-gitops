@@ -18,3 +18,8 @@ spec:
         port:
           number: 8080
       weight: 100
+    timeout: 10s
+    retries:
+      attempts: 3
+      perTryTimeout: 3s
+      retryOn: gateway-error,connect-failure,refused-stream,5xx

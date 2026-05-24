@@ -4,6 +4,5 @@ kind: Kustomization
 resources:
 - account-service/
 - auth-service/
-- document-service/
 - transaction-service/
 - apigateway-service/

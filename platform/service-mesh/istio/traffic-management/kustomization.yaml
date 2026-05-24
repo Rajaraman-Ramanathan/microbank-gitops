@@ -4,6 +4,3 @@ kind: Kustomization
 resources:
 - destination-rules/
 - virtual-services/
-- retries/
-- timeouts/
-- circuit-breakers/
