@@ -1,0 +1,58 @@
+replicaCount: 2
+
+image:
+  repository: ""
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  targetPort: 8080
+
+imagePullSecrets: []
+
+serviceAccount:
+  create: true
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  runAsNonRoot: true
+  fsGroup: 1000
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsUser: 1000
+  capabilities:
+    drop:
+      - ALL
+
+configMap:
+  enabled: false
+
+secret:
+  enabled: false
+
+hpa:
+  enabled: false
+
+readinessProbe:
+  enabled: false
+
+livenessProbe:
+  enabled: false
+
+startupProbe:
+  enabled: false
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+initContainers: []
+
+global:
+  labels: {}
