@@ -6,13 +6,25 @@ image:
   pullPolicy: IfNotPresent
 
 service:
+  enabled: true
+  type: ClusterIP
+  port: 80
   targetPort: 8080
+  headless: false
+  annotations: {}
+  extraPorts: []
+  metrics:
+    enabled: false
+    port: 9090
+    targetPort: 9090
 
 imagePullSecrets: []
 
 serviceAccount:
   create: true
   name: ""
+  automount: false
+  annotations: {}
 
 podAnnotations: {}
 
