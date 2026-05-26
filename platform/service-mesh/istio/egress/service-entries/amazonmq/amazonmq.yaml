@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1
+kind: ServiceEntry
+metadata:
+  name: amazonmq
+  namespace: istio-system
+spec:
+  hosts:
+    - vpce-xyz.mq.ap-south-1.vpce.amazonaws.com
+  ports:
+  - number: 5671
+    name: amqps
+    protocol: TLS
+  resolution: DNS
+  location: MESH_EXTERNAL
