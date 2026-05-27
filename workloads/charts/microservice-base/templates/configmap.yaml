@@ -1,0 +1,29 @@
+{{- if .Values.configMap.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+{{- if .Values.checksum.enabled }}
+  name: {{ include "microservice.fullname" . }}-{{ include "microservice.configResourceChecksum" . | trunc 8 }}
+{{- else }}
+  name: {{ include "microservice.fullname" . }}
+{{- end }}
+  labels:
+    {{- include "microservice.labels" . | nindent 4 }}
+  {{- with .Values.configMap.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- if hasKey .Values.configMap "immutable" }}
+immutable: {{ .Values.configMap.immutable }}
+{{- end }}
+data:
+{{- with .Values.configMap.data }}
+  {{ toYaml . | nindent 2 }}
+{{- end }}
+{{- with .Values.configMap.files }}
+  {{- range $key,$value := . }}
+    {{ $key }}: |
+{{ $value | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}

@@ -81,11 +81,28 @@ Service Account
 {{- end }}
 
 {{/*
-Config checksum
-Auto rollout when config changes
+ConfigMap checksum for rollout
+Auto rollout when configmap data and file changes
 */}}
-{{- define "microservice.configChecksum" -}}
-  {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+{{- define "microservice.configRolloutChecksum" -}}
+{{ dict
+      "data" .Values.configMap.data
+      "files" .Values.configMap.files
+| toYaml | sha256sum }}
+{{- end }}
+
+{{/*
+ConfigMap checksum for configmap resource
+Includes all fields that can trigger configmap update
+*/}}
+{{- define "microservice.configResourceChecksum" -}}
+{{ dict
+      "data" .Values.configMap.data
+      "files" .Values.configMap.files
+      "labels" .Values.configMap.labels
+      "annotations" .Values.configMap.annotations
+      "immutable" .Values.configMap.immutable
+| toYaml | sha256sum }}
 {{- end }}
 
 {{/*

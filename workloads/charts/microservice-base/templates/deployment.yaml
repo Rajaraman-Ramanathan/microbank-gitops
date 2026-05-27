@@ -53,12 +53,15 @@ spec:
         envFrom:
         {{ if .Values.configMap.enabled }}
         - configMapRef:
+        {{- if .Values.checksum.enabled }}
+            name: {{ include "microservice.fullname" . }}-{{ include "microservice.configDataChecksum" . | trunc 8 }}
+        {{- else }}
             name: {{ include "microservice.fullname" . }}
-        {{ end }}
+        {{- end }}
         {{ if .Values.secret.enabled }}
         - secretRef:
             name: {{ include "microservice.fullname" . }}
-        {{ end }}
+        {{- end }}
         {{ if .Values.readinessProbe.enabled }}
         readinessProbe:
           {{ toYaml .Values.readinessProbe.config | nindent 10 }}
