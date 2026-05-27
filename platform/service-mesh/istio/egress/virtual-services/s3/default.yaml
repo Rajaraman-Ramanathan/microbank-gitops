@@ -1,0 +1,35 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: s3-egress
+  namespace: istio-system
+spec:
+  hosts:
+  - s3.ap-south-1.amazonaws.com
+  gateways:
+  - mesh
+  - egress-gateway
+  tls:
+  - match:
+    - gateways:
+      - mesh
+      port: 443
+      sniHosts:
+      - s3.ap-south-1.amazonaws.com
+    route:
+    - destination:
+        host: istio-egressgateway.istio-system.svc.cluster.local
+        subset: default
+        port:
+          number: 443
+  - match:
+    - gateways:
+      - egress-gateway
+      port: 443
+      sniHosts:
+      - s3.ap-south-1.amazonaws.com
+    route:
+    - destination:
+        host: s3.ap-south-1.amazonaws.com
+        port:
+          number: 443

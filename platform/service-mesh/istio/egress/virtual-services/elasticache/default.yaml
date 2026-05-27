@@ -1,0 +1,30 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: redis-egress
+  namespace: istio-system
+spec:
+  hosts:
+  - microbank-redis.xxxxx.cache.amazonaws.com
+  gateways:
+  - mesh
+  - egress-gateway
+  tcp:
+  - match:
+    - gateways:
+      - mesh
+      port: 6379
+    route:
+    - destination:
+        host: istio-egressgateway.istio-system.svc.cluster.local
+        port:
+          number: 6379
+  - match:
+    - gateways:
+      - egress-gateway
+      port: 6379
+    route:
+    - destination:
+        host: microbank-redis.xxxxx.cache.amazonaws.com
+        port:
+          number: 6379

@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: keycloak-egress
+  namespace: istio-system
+spec:
+  hosts:
+  - auth.microbank.internal
+  gateways:
+  - mesh
+  - egress-gateway
+  http:
+  - route:
+    - destination:
+        host: istio-egressgateway.istio-system.svc.cluster.local
+        port:
+          number: 443
+  - route:
+    - destination:
+        host: auth.microbank.internal
+        port:
+          number: 443

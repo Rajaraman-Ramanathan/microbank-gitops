@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: ses
+  namespace: istio-system
+spec:
+  host: vpce-abc.email.ap-south-1.vpce.amazonaws.com
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        maxConnections: 50
+      http:
+        maxRequestsPerConnection: 20
+        idleTimeout: 30s
+    outlierDetection:
+      consecutive5xxErrors: 10
+      interval: 30s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50

@@ -1,10 +1,11 @@
 apiVersion: networking.istio.io/v1
 kind: ServiceEntry
 metadata:
-  name: ses
+  name: s3
+  namespace: istio-system
 spec:
   hosts:
-    - vpce-abc123.email.ap-south-1.vpce.amazonaws.com
+   - s3.ap-south-1.amazonaws.com
   ports:
   - number: 443
     name: https

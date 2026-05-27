@@ -1,0 +1,30 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: postgres-egress
+  namespace: istio-system
+spec:
+  hosts:
+  - microbank.cluster-xyz.ap-south-1.rds.amazonaws.com
+  gateways:
+  - mesh
+  - egress-gateway
+  tcp:
+  - match:
+    - gateways:
+      - mesh
+      port: 5432
+    route:
+    - destination:
+        host: istio-egressgateway.istio-system.svc.cluster.local
+        port:
+          number: 5432
+  - match:
+    - gateways:
+      - egress-gateway
+      port: 5432
+    route:
+    - destination:
+        host: microbank.cluster-xyz.ap-south-1.rds.amazonaws.com
+        port:
+          number: 5432
