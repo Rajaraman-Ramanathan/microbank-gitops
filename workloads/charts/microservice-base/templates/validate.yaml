@@ -35,11 +35,8 @@ Fail early for invalid PDB configuration
   {{ fail "Specify either pdb.minAvailable or pdb.maxUnavailable, not both" }}
 {{- end }}
 
-{{/*
-Fail early for invalid VirtualService configuration
-*/}}
-{{- if and .Values.virtualService.enabled (not .Values.istio.enabled) }}
-  {{ fail "virtualService requires istio.enabled=true" }}
+{{- if and .Values.serviceMonitor.enabled (not .Values.service.metrics.enabled) }}
+  {{ fail "serviceMonitor requires service.metrics.enabled=true" }}
 {{- end }}
 
 {{/*

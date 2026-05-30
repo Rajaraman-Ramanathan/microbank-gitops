@@ -86,6 +86,25 @@ pdb:
   minAvailable: null
   maxUnavailable: 1
 
+serviceMonitor:
+  enabled: false
+  port: metrics
+  path: /actuator/prometheus
+  interval: 30s
+  scrapeTimeout: 10s
+  honorLabels: false
+  labels: {}
+  metricRelabelings: []
+  relabelings: []
+
+externalSecret:
+  enabled: false
+  refreshInterval: 1h
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: aws-secrets-manager
+  data: []
+
 readinessProbe:
   enabled: false
 
