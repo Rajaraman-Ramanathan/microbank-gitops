@@ -4,42 +4,44 @@ metadata:
   name: {{ include "microservice.fullname" . }}
   labels:
     {{- include "microservice.labels" . | nindent 4 }}
-  annotations:
-  {{- if .Values.configMap.enabled }}
-    checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-  {{- end }}
-  {{- if .Values.secret.enabled }}
-    checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
-  {{- end }}
   {{- with .Values.podAnnotations }}
+  annotations:
     {{ toYaml . | nindent 4 }}
   {{- end }}
 spec:
 {{- if not .Values.hpa.enabled }}
   replicas: {{ .Values.replicaCount }}
 {{- end }}
-  revisionHistoryLimit: 5
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   selector:
     matchLabels:
       {{- include "microservice.selectorLabels" . | nindent 6 }}
   strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 25%
+    {{- toYaml .Values.strategy | nindent 4 }}
   template:
     metadata:
       labels:
         {{- include "microservice.selectorLabels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{ toYaml . | nindent 8 }}
+        {{- end }}
       annotations:
-        checksum/config: {{ include "microservice.configChecksum" . }}
-        checksum/secret: {{ include "microservice.secretChecksum" . }}
+        {{- if .Values.configMap.enabled }}
+          checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if .Values.secret.enabled }}
+          checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        {{- end }}
         {{- with .Values.podAnnotations }}
         {{ toYaml . | nindent 8 }}
         {{- end }}
     spec:
       serviceAccountName: {{ include "microservice.serviceAccountName" . }}
-      automountServiceAccountToken: false
+      automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
+      {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName }}
+      {{- end }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
       {{ toYaml . | nindent 8 }}
@@ -51,7 +53,7 @@ spec:
       {{ toYaml .Values.initContainers | nindent 8 }}
       {{ end }}
       containers:
-      - name: {{ .Chart.Name }}
+      - name: {{ include "microservice.name" . }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         securityContext:
@@ -59,33 +61,36 @@ spec:
         ports:
         - name: http
           containerPort: {{ .Values.service.targetPort }}
-        {{ if .Values.configMap.enabled }}
+        {{- if or .Values.configMap.enabled .Values.secret.enabled }}
         envFrom:
         {{ if .Values.configMap.enabled }}
         - configMapRef:
-        {{- if .Values.checksum.enabled }}
-            name: {{ include "microservice.fullname" . }}-{{ include "microservice.configDataChecksum" . | trunc 8 }}
-        {{- else }}
             name: {{ include "microservice.fullname" . }}
         {{- end }}
         {{ if .Values.secret.enabled }}
         - secretRef:
             name: {{ include "microservice.fullname" . }}
         {{- end }}
-        {{ if .Values.readinessProbe.enabled }}
+        {{- end }}
+        {{- if .Values.readinessProbe.enabled }}
         readinessProbe:
           {{ toYaml .Values.readinessProbe.config | nindent 10 }}
-        {{ end }}
-        {{ if .Values.livenessProbe.enabled }}
+        {{- end }}
+        {{- if .Values.livenessProbe.enabled }}
         livenessProbe:
           {{ toYaml .Values.livenessProbe.config | nindent 10 }}
-        {{ end }}
-        {{ if .Values.startupProbe.enabled }}
+        {{- end }}
+        {{- if .Values.startupProbe.enabled }}
         startupProbe:
           {{ toYaml .Values.startupProbe.config | nindent 10 }}
-        {{ end }}
+        {{- end }}
+        {{- if .Values.resources.enabled }}
         resources:
-          {{- toYaml .Values.resources | nindent 10 }}
+          requests:
+        {{ toYaml .Values.resources.requests | nindent 12 }}
+          limits:
+        {{ toYaml .Values.resources.limits | nindent 12 }}
+        {{- end }}
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -102,15 +107,11 @@ spec:
         labelSelector:
           matchLabels:
             {{- include "microservice.selectorLabels" . | nindent 12 }}
-      {{ with .Values.nodeSelector }}
+      {{- with .Values.nodeSelector }}
       nodeSelector:
       {{ toYaml . | nindent 8 }}
-      {{ end }}
-      {{ with .Values.tolerations }}
+      {{- end }}
+      {{- with .Values.tolerations }}
       tolerations:
       {{ toYaml . | nindent 8 }}
-      {{ end }}
-      {{ with .Values.affinity }}
-      affinity:
-      {{ toYaml . | nindent 8 }}
-      {{ end }}
+      {{- end }}

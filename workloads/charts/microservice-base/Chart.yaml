@@ -1,0 +1,21 @@
+apiVersion: v2
+name: microservice-base
+description: Enterprise reusable Helm chart for Spring Boot microservices on Kubernetes
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+home: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
+sources:
+  - https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
+keywords:
+  - kubernetes
+  - microservices
+  - springboot
+  - istio
+  - eks
+  - gitops
+maintainers:
+  - name: Platform Engineering Team
+    email: platform-team@company.com
+annotations:
+  category: Platform

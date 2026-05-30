@@ -2,8 +2,20 @@ replicaCount: 2
 
 image:
   repository: ""
-  tag: latest
+  tag: ""
   pullPolicy: IfNotPresent
+
+revisionHistoryLimit: 5
+
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 0
+    maxSurge: 25%
+
+terminationGracePeriodSeconds: 30
+
+priorityClassName: ""
 
 service:
   enabled: true
@@ -42,18 +54,25 @@ securityContext:
 
 configMap:
   enabled: false
-  immutable: false
   annotations: {}
   data: {}
   files: {}
 
 secret:
   enabled: false
-  immutable: false
   type: Opaque
   annotations: {}
   data: {}
   files: {}
+
+resources:
+  enabled: true
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
 
 hpa:
   enabled: false
@@ -107,20 +126,23 @@ externalSecret:
 
 readinessProbe:
   enabled: false
+  config: {}
 
 livenessProbe:
   enabled: false
+  config: {}
 
 startupProbe:
   enabled: false
+  config: {}
 
 nodeSelector: {}
 
 tolerations: []
 
-affinity: {}
-
 initContainers: []
 
 global:
   labels: {}
+
+podLabels: {}
