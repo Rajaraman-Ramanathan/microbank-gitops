@@ -49,6 +49,7 @@ configMap:
 
 secret:
   enabled: false
+  immutable: false
   type: Opaque
   annotations: {}
   data: {}
@@ -56,6 +57,34 @@ secret:
 
 hpa:
   enabled: false
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+  customMetrics: []
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      selectPolicy: Max
+      policies:
+        - type: Percent
+          value: 100
+          periodSeconds: 60
+        - type: Pods
+          value: 4
+          periodSeconds: 60
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      selectPolicy: Max
+      policies:
+        - type: Percent
+          value: 20
+          periodSeconds: 60
+
+pdb:
+  enabled: false
+  minAvailable: null
+  maxUnavailable: 1
 
 readinessProbe:
   enabled: false

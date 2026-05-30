@@ -2,11 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-{{- if .Values.checksum.enabled }}
-  name: {{ include "microservice.fullname" . }}-{{ include "microservice.configResourceChecksum" . | trunc 8 }}
-{{- else }}
   name: {{ include "microservice.fullname" . }}
-{{- end }}
   labels:
     {{- include "microservice.labels" . | nindent 4 }}
   {{- with .Values.configMap.annotations }}

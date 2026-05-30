@@ -20,6 +20,21 @@ Fail early for invalid HPA configuration
   {{- fail "hpa.minReplicas must be >=1" }}
 {{- end }}
 
+{{- if and .Values.hpa.enabled (lt .Values.hpa.maxReplicas .Values.hpa.minReplicas) }}
+  {{ fail "hpa.maxReplicas must be >= minReplicas" }}
+{{- end }}
+
+{{- if and .Values.hpa.enabled (not .Values.resources.enabled) }}
+  {{ fail "HPA requires resources.enabled=true with CPU/Memory requests" }}
+{{- end }}
+
+{{/*
+Fail early for invalid PDB configuration
+*/}}
+{{- if and .Values.pdb.enabled .Values.pdb.minAvailable .Values.pdb.maxUnavailable }}
+  {{ fail "Specify either pdb.minAvailable or pdb.maxUnavailable, not both" }}
+{{- end }}
+
 {{/*
 Fail early for invalid VirtualService configuration
 */}}

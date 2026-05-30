@@ -4,6 +4,16 @@ metadata:
   name: {{ include "microservice.fullname" . }}
   labels:
     {{- include "microservice.labels" . | nindent 4 }}
+  annotations:
+  {{- if .Values.configMap.enabled }}
+    checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+  {{- end }}
+  {{- if .Values.secret.enabled }}
+    checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+  {{- end }}
+  {{- with .Values.podAnnotations }}
+    {{ toYaml . | nindent 4 }}
+  {{- end }}
 spec:
 {{- if not .Values.hpa.enabled }}
   replicas: {{ .Values.replicaCount }}
