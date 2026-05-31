@@ -4,7 +4,7 @@ metadata:
   name: {{ include "microservice.fullname" . }}
   labels:
     {{- include "microservice.labels" . | nindent 4 }}
-  {{- with .Values.podAnnotations }}
+  {{- with .Values.deploymentAnnotations }}
   annotations:
     {{ toYaml . | nindent 4 }}
   {{- end }}
@@ -61,6 +61,10 @@ spec:
         ports:
         - name: http
           containerPort: {{ .Values.service.targetPort }}
+        {{- if .Values.service.metrics.enabled }}
+        - name: metrics
+          containerPort: {{ .Values.service.metrics.targetPort }}
+        {{- end }}
         {{- if or .Values.configMap.enabled .Values.secret.enabled }}
         envFrom:
         {{ if .Values.configMap.enabled }}
@@ -87,9 +91,9 @@ spec:
         {{- if .Values.resources.enabled }}
         resources:
           requests:
-        {{ toYaml .Values.resources.requests | nindent 12 }}
+            {{- toYaml .Values.resources.requests | nindent 12 }}
           limits:
-        {{ toYaml .Values.resources.limits | nindent 12 }}
+            {{- toYaml .Values.resources.limits | nindent 12 }}
         {{- end }}
       affinity:
         podAntiAffinity:

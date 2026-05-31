@@ -38,6 +38,8 @@ serviceAccount:
   automount: false
   annotations: {}
 
+deploymentAnnotations: {}
+
 podAnnotations: {}
 
 podSecurityContext:
@@ -125,15 +127,15 @@ externalSecret:
   data: []
 
 readinessProbe:
-  enabled: false
+  enabled: true
   config: {}
 
 livenessProbe:
-  enabled: false
+  enabled: true
   config: {}
 
 startupProbe:
-  enabled: false
+  enabled: true
   config: {}
 
 nodeSelector: {}
