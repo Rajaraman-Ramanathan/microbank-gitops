@@ -9,11 +9,11 @@ Fail early for invalid secret creation combinations
 {{/*
 Fail early for invalid HPA configuration
 */}}
-{{- if and .Values.hpa.enabled (lt .Values.hpa.minReplicas 1) }}
+{{- if and .Values.hpa.enabled (lt (int .Values.hpa.minReplicas) 1) }}
   {{- fail "hpa.minReplicas must be >=1" }}
 {{- end }}
 
-{{- if and .Values.hpa.enabled (lt .Values.hpa.maxReplicas .Values.hpa.minReplicas) }}
+{{- if and .Values.hpa.enabled (lt (int .Values.hpa.maxReplicas) (int .Values.hpa.minReplicas)) }}
   {{ fail "hpa.maxReplicas must be >= minReplicas" }}
 {{- end }}
 
