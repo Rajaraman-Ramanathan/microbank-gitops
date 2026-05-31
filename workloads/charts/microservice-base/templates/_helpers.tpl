@@ -43,17 +43,17 @@ Applied to Deployment, Service,
 ConfigMap, Secret, etc.
 */}}
 {{- define "microservice.labels" -}}
-  helm.sh/chart: {{ include "microservice.chart" . }}
-  app.kubernetes.io/name: {{ include "microservice.name" . }}
-  app.kubernetes.io/instance: {{ .Release.Name }}
-  app.kubernetes.io/version: {{ .Chart.AppVersion }}
-  app.kubernetes.io/managed-by: {{ .Release.Service }}
-  app.kubernetes.io/component: {{ .Values.global.component | default "backend" }}
-  app.kubernetes.io/part-of: {{ .Values.global.partOf | default "microbank" }}
-  tier: {{ .Values.global.tier | default "workloads" }}
-  {{- with .Values.global.labels }}
-    {{ toYaml . | nindent 4 }}
-  {{- end }}
+helm.sh/chart: {{ include "microservice.chart" . }}
+app.kubernetes.io/name: {{ include "microservice.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/version: {{ .Chart.AppVersion }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/component: {{ .Values.global.component | default "backend" }}
+app.kubernetes.io/part-of: {{ .Values.global.partOf | default "microbank" }}
+tier: {{ .Values.global.tier | default "workloads" }}
+{{- with .Values.global.labels }}
+{{ toYaml . }}
+{{- end }}
 {{- end }}
 
 {{/*

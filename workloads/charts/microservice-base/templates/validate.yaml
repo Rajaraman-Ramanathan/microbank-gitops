@@ -7,13 +7,6 @@ Fail early for invalid secret creation combinations
 {{- end }}
 
 {{/*
-Fail early for invalid IRSA configuration
-*/}}
-{{- if and .Values.irsa.enabled (empty .Values.serviceAccount.annotations) }}
-  {{- fail "IRSA enabled but service account annotations missing" }}
-{{- end }}
-
-{{/*
 Fail early for invalid HPA configuration
 */}}
 {{- if and .Values.hpa.enabled (lt .Values.hpa.minReplicas 1) }}

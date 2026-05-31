@@ -34,7 +34,7 @@ imagePullSecrets: []
 
 serviceAccount:
   create: true
-  name: ""
+  name: "auth-service-sa"
   automount: false
   annotations: {}
 
@@ -55,13 +55,13 @@ securityContext:
       - ALL
 
 configMap:
-  enabled: false
+  enabled: true
   annotations: {}
   data: {}
   files: {}
 
 secret:
-  enabled: false
+  enabled: true
   type: Opaque
   annotations: {}
   data: {}
