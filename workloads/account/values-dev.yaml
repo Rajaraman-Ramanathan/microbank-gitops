@@ -81,3 +81,9 @@ livenessProbe:
     periodSeconds: 10
     timeoutSeconds: 3
     failureThreshold: 3
+
+affinity:
+  enabled: false
+
+topologySpreadConstraints:
+  enabled: false
