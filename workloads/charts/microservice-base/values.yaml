@@ -138,6 +138,12 @@ startupProbe:
   enabled: false
   config: {}
 
+affinity:
+  enabled: false
+
+topologySpreadConstraints:
+  enabled: false
+
 nodeSelector: {}
 
 tolerations: []
