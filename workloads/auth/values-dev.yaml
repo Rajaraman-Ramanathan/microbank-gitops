@@ -1,0 +1,103 @@
+nameOverride: "auth-service"
+
+fullnameOverride: "auth-service"
+
+replicaCount: 1
+
+image:
+  repository: 65486509/auth-service
+  tag: "1.0.36"
+  pullPolicy: Always
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+  targetPort: 8081
+
+serviceAccount:
+  create: true
+  name: "auth-service-sa"
+  automount: false
+  annotations: {}
+
+podLabels:
+  network-role: backend
+  access.redis: "true"
+  access.rabbitmq: "true"
+  access.postgres: "true"
+  access.keycloak: "true"
+  exposed-via-gateway: "true"
+
+configMap:
+  enabled: true
+  data:
+    SPRING_PROFILES_ACTIVE: docker
+    SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-postgresql.postgres.svc.cluster.local:5432/authdb
+    SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+    SPRING_DATA_REDIS_HOST: redis-master.redis.svc.cluster.local
+    SPRING_DATA_REDIS_PORT: "6379"
+    KEYCLOAK_LOGIN_TOKEN_URL: http://auth.microbank.local/realms/microbank/protocol/openid-connect/token
+    KEYCLOAK_LOGIN_GRANT_TYPE: password
+    KEYCLOAK_LOGIN_CLIENT_ID: microbank-client
+    KEYCLOAK_CONFIG_SERVER_URL: http://auth.microbank.local
+    KEYCLOAK_CONFIG_REALM: master
+    KEYCLOAK_CONFIG_CLIENT_ID: admin-cli
+    KEYCLOAK_CONFIG_USERNAME: admin
+    SERVER_PORT: "8081"
+
+secret:
+  enabled: true
+  data:
+    SPRING_DATASOURCE_USERNAME: authuser
+    SPRING_DATASOURCE_PASSWORD: authpass
+    KEYCLOAK_LOGIN_CLIENT_SECRET: oVncCcoVMZCFRbiGA99ygvEcsclLcxW8
+    KEYCLOAK_CONFIG_PASSWORD: admin123
+    KEYCLOAK_CONFIG_CLIENT_SECRET: 0E3qKQwVTqbepjzCiVe3VfG41AqNEtNu
+
+resources:
+  enabled: true
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: 600m
+    memory: 512Mi
+
+startupProbe:
+  enabled: true
+  config:
+    httpGet:
+      path: /actuator/health/liveness
+      port: 8081
+    failureThreshold: 60
+    periodSeconds: 5
+    timeoutSeconds: 3
+
+readinessProbe:
+  enabled: true
+  config:
+    httpGet:
+      path: /actuator/health/readiness
+      port: 8081
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+livenessProbe:
+  enabled: true
+  config:
+    httpGet:
+      path: /actuator/health/liveness
+      port: 8081
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+affinity:
+  enabled: false
+
+topologySpreadConstraints:
+  enabled: false
