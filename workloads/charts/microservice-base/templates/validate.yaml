@@ -88,3 +88,10 @@ Fail early for invalid startupProbe configuration
   {{ fail "startupProbe.enabled=true requires startupProbe.config" }}
 {{- end }}
 
+{{/*
+Fail early for invalid ingress configuration
+*/}}
+{{- if and .Values.ingress.enabled (ne (.Values.global.component | default "backend") "gateway") }}
+  {{- fail "Ingress may only be enabled for gateway components" }}
+{{- end }}
+
