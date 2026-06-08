@@ -8,5 +8,10 @@ resources:
 - postgres.yaml
 - keycloak.yaml
 - maildev.yaml
-- workloads.yaml
 - ingress-nginx.yaml
+- auth.yaml
+- account.yaml
+- transaction.yaml
+- apigateway.yaml
+- document.yaml
+- notification.yaml

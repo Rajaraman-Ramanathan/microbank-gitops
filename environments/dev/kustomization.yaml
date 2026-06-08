@@ -5,4 +5,3 @@ namespace: microbank-dev
 
 resources:
   - networking/ingress
-  - rbac
