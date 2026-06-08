@@ -1,9 +1,0 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: postgres-admin
-  namespace: postgres
-rules:
-  - apiGroups: ["*"]
-    resources: ["*"]
-    verbs: ["*"]
