@@ -10,6 +10,9 @@ spec:
   - https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
 
   destinations:
+  - namespace: argocd
+    server: https://kubernetes.default.svc
+
   - namespace: '*'
     server: https://microbank-dev-control-plane:6443
 
