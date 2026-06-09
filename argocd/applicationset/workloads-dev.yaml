@@ -3,8 +3,6 @@ kind: ApplicationSet
 metadata:
   name: workloads-dev
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "8"
 spec:
   generators:
     - git:
