@@ -10,7 +10,7 @@ spec:
   - https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
 
   destinations:
-  - namespace: microbank-*
+  - namespace: '*'
     server: https://microbank-dev-control-plane:6443
 
   # Workloads MUST NOT create cluster-scoped resources
