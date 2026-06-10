@@ -1,5 +1,5 @@
 serviceAccount:
-  create: false
+  create: true
   name: minio-sa
 
 mode: standalone

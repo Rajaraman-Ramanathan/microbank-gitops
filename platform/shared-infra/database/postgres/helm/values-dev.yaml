@@ -1,6 +1,6 @@
 postgresql:
   serviceAccount:
-    create: false
+    create: true
     name: postgres-sa
 
   architecture: standalone

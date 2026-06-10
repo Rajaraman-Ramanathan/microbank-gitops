@@ -1,6 +1,6 @@
 redis:
   serviceAccount:
-    create: false
+    create: true
     name: redis-sa
     
   architecture: standalone

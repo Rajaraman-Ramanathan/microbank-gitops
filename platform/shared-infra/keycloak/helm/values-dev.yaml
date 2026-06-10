@@ -1,6 +1,6 @@
 keycloak:
   serviceAccount:
-    create: false
+    create: true
     name: keycloak-sa
   
   replicas: 1
