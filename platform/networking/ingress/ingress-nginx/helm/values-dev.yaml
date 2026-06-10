@@ -1,0 +1,20 @@
+ingress-nginx:
+  controller:
+    replicaCount: 1
+
+    ingressClassResource:
+      name: nginx
+      enabled: true
+      default: true
+
+    service:
+      type: ClusterIP
+
+    admissionWebhooks:
+      enabled: true
+
+    metrics:
+      enabled: true
+
+  defaultBackend:
+    enabled: true

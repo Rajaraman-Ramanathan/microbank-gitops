@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: workloads-dev
+  name: workloads
   namespace: argocd
 spec:
   generators:
@@ -12,7 +12,7 @@ spec:
           - path: workloads/services/*
   template:
     metadata:
-      name: '{{path.basename}}-dev'
+      name: '{{path.basename}}'
     spec:
       project: workloads
       source:

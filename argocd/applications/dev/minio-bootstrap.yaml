@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: minio-bootstrap-dev
+  name: minio-bootstrap
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "4"
