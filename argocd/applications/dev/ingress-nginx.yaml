@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
     targetRevision: dev
-    path: platform/networking/ingress-nginx/helm
+    path: platform/networking/ingress/ingress-nginx/helm
     helm:
       releaseName: ingress-nginx
       valueFiles:
