@@ -1,6 +1,0 @@
-apiVersion: v2
-name: rabbitmq
-description: RabbitMQ helm chart for Microbank platform
-type: application
-version: 0.1.0
-appVersion: 4.3.0
