@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: workloads
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
+        revision: dev
+        directories:
+          - path: envoironments/dev/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: microbank
+      sources:
+        - repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
+          targetRevision: dev
+          path: workloads/charts/microservice-base
+          helm:
+            valueFiles:
+              - $values/environments/dev/{{path.basename}}/values-dev.yaml
+        - repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
+          targetRevision: dev
+          ref: values
+      destination:
+        name: microbank-dev-cluster
+        namespace: 'microbank-{{path.basename}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
