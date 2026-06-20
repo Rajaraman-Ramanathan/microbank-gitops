@@ -11,7 +11,7 @@ spec:
         repoURL: https://github.com/Rajaraman-Ramanathan/microbank-gitops.git
         revision: dev
         directories:
-          - path: envoironments/dev/*
+          - path: environments/dev/*
   template:
     metadata:
       name: '{{path.basename}}'
