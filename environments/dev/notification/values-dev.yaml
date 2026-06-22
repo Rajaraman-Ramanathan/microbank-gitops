@@ -5,7 +5,7 @@ global:
   component: worker
 image:
   repository: 65486509/notification-service
-  tag: "1.0.39"
+  tag: "1.0.40"
   pullPolicy: Always
 service:
   enabled: true
