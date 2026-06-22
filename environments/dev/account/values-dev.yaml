@@ -1,32 +1,25 @@
 nameOverride: "account-service"
-
 fullnameOverride: "account-service"
-
 replicaCount: 1
-
 image:
   repository: 65486509/account-service
-  tag: "1.0.36"
+  tag: "1.0.39"
   pullPolicy: Always
-
 service:
   enabled: true
   type: ClusterIP
   port: 80
   targetPort: 8082
-
 serviceAccount:
   create: true
   name: "account-service-sa"
   automount: false
   annotations: {}
-
 podLabels:
   network-role: backend
   access.postgres: "true"
   access.keycloak: "true"
   exposed-via-gateway: "true"
-
 configMap:
   enabled: true
   data:
@@ -34,13 +27,11 @@ configMap:
     SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-postgresql.postgres.svc.cluster.local:5432/accountdb
     SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
     SERVER_PORT: "8082"
-
 secret:
   enabled: true
   data:
     SPRING_DATASOURCE_USERNAME: accountuser
     SPRING_DATASOURCE_PASSWORD: accountpass
-
 resources:
   enabled: true
   requests:
@@ -49,7 +40,6 @@ resources:
   limits:
     cpu: 500m
     memory: 512Mi
-
 startupProbe:
   enabled: true
   config:
@@ -59,7 +49,6 @@ startupProbe:
     failureThreshold: 30
     periodSeconds: 10
     timeoutSeconds: 3
-
 readinessProbe:
   enabled: true
   config:
@@ -70,7 +59,6 @@ readinessProbe:
     periodSeconds: 10
     timeoutSeconds: 3
     failureThreshold: 3
-
 livenessProbe:
   enabled: true
   config:
@@ -81,9 +69,7 @@ livenessProbe:
     periodSeconds: 10
     timeoutSeconds: 3
     failureThreshold: 3
-
 affinity:
   enabled: false
-
 topologySpreadConstraints:
   enabled: false
