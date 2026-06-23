@@ -74,7 +74,7 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
   hosts:
-    - host: api.microbank.local
+    - host: api.dev.microbankapp.com
       paths:
         - path: /api
           pathType: Prefix
