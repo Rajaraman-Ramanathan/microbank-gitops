@@ -5,7 +5,7 @@ global:
   component: backend
 image:
   repository: 65486509/transaction-service
-  tag: "1.0.40"
+  tag: "1.0.41"
   pullPolicy: Always
 service:
   enabled: true
