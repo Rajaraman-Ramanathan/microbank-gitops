@@ -60,11 +60,11 @@ spec:
           {{- toYaml .Values.securityContext | nindent 10 }}
         ports:
         - name: http
-          containerPort: {{ .Values.service.targetPort }}
-        {{- if .Values.service.metrics.enabled }}
-        - name: metrics
-          containerPort: {{ .Values.service.metrics.targetPort }}
-        {{- end }}
+          containerPort: {{ .Values.containerPorts.http }}
+          protocol: TCP
+        - name: management
+          containerPort: {{ .Values.containerPorts.management }}
+          protocol: TCP
         {{- if or .Values.configMap.enabled .Values.secret.enabled }}
         envFrom:
         {{ if .Values.configMap.enabled }}

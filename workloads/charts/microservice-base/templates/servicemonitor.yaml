@@ -12,12 +12,10 @@ spec:
   selector:
     matchLabels:
       {{- include "microservice.selectorLabels" . | nindent 6 }}
-  namespaceSelector:
-    matchNames:
-      - {{ .Release.Namespace }}
   endpoints:
     - port: {{ .Values.serviceMonitor.port }}
       path: {{ .Values.serviceMonitor.path }}
+      scheme: {{ .Values.serviceMonitor.scheme }}
       interval: {{ .Values.serviceMonitor.interval }}
       scrapeTimeout: {{ .Values.serviceMonitor.scrapeTimeout }}
       honorLabels: {{ .Values.serviceMonitor.honorLabels }}

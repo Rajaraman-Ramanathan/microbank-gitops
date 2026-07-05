@@ -1,0 +1,82 @@
+nameOverride: "transaction-service"
+fullnameOverride: "transaction-service"
+replicaCount: 1
+global:
+  component: backend
+image:
+  repository: 65486509/transaction-service
+  tag: "1.0.42"
+  pullPolicy: Always
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+  targetPort: 8083
+serviceAccount:
+  create: true
+  name: "transaction-service-sa"
+  automount: false
+  annotations: {}
+podLabels:
+  network-role: backend
+  access.postgres: "true"
+  access.rabbitmq: "true"
+  access.keycloak: "true"
+  exposed-via-gateway: "true"
+configMap:
+  enabled: true
+  data:
+    SPRING_PROFILES_ACTIVE: docker
+    SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-postgresql.postgres.svc.cluster.local:5432/transactiondb
+    SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+    SPRING_RABBITMQ_HOST: rabbitmq.rabbitmq.svc.cluster.local
+    SPRING_RABBITMQ_PORT: "5672"
+    SPRING_RABBITMQ_USERNAME: devuser
+    SERVER_PORT: "8083"
+secret:
+  enabled: true
+  data:
+    SPRING_DATASOURCE_USERNAME: transactionuser
+    SPRING_DATASOURCE_PASSWORD: transactionpass
+    SPRING_RABBITMQ_PASSWORD: devpassword
+resources:
+  enabled: true
+  requests:
+    cpu: 300m
+    memory: 384Mi
+  limits:
+    cpu: 700m
+    memory: 768Mi
+startupProbe:
+  enabled: true
+  config:
+    httpGet:
+      path: /actuator/health/liveness
+      port: 8083
+    failureThreshold: 40
+    periodSeconds: 5
+    timeoutSeconds: 3
+readinessProbe:
+  enabled: true
+  config:
+    httpGet:
+      path: /actuator/health/readiness
+      port: 8083
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 2
+livenessProbe:
+  enabled: true
+  config:
+    httpGet:
+      path: /actuator/health/liveness
+      port: 8083
+    initialDelaySeconds: 10
+    periodSeconds: 20
+    timeoutSeconds: 5
+    failureThreshold: 5
+affinity:
+  enabled: false
+topologySpreadConstraints:
+  enabled: false

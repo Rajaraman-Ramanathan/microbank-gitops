@@ -1,32 +1,37 @@
-nameOverride: "apigateway-ingress"
-fullnameOverride: "apigateway-ingress"
+nameOverride: "account-service"
+fullnameOverride: "account-service"
 replicaCount: 1
-global:
-  component: gateway
 image:
-  repository: 65486509/apigateway-service
+  repository: 65486509/account-service
   tag: "1.0.42"
   pullPolicy: Always
 service:
   enabled: true
   type: ClusterIP
   port: 80
-  targetPort: 8123
+  targetPort: 8082
 serviceAccount:
   create: true
-  name: "apigateway-service-sa"
+  name: "account-service-sa"
   automount: false
   annotations: {}
+podLabels:
+  network-role: backend
+  access.postgres: "true"
+  access.keycloak: "true"
+  exposed-via-gateway: "true"
 configMap:
   enabled: true
   data:
     SPRING_PROFILES_ACTIVE: docker
-    SERVER_PORT: "8123"
+    SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-postgresql.postgres.svc.cluster.local:5432/accountdb
+    SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+    SERVER_PORT: "8082"
 secret:
-  enabled: false
-podLabels:
-  network-role: gateway
-  access.keycloak: "true"
+  enabled: true
+  data:
+    SPRING_DATASOURCE_USERNAME: accountuser
+    SPRING_DATASOURCE_PASSWORD: accountpass
 resources:
   enabled: true
   requests:
@@ -40,16 +45,16 @@ startupProbe:
   config:
     httpGet:
       path: /actuator/health/liveness
-      port: 8123
-    failureThreshold: 60
-    periodSeconds: 5
+      port: 8082
+    failureThreshold: 30
+    periodSeconds: 10
     timeoutSeconds: 3
 readinessProbe:
   enabled: true
   config:
     httpGet:
       path: /actuator/health/readiness
-      port: 8123
+      port: 8082
     initialDelaySeconds: 10
     periodSeconds: 10
     timeoutSeconds: 3
@@ -59,7 +64,7 @@ livenessProbe:
   config:
     httpGet:
       path: /actuator/health/liveness
-      port: 8123
+      port: 8082
     initialDelaySeconds: 10
     periodSeconds: 10
     timeoutSeconds: 3
@@ -68,13 +73,3 @@ affinity:
   enabled: false
 topologySpreadConstraints:
   enabled: false
-ingress:
-  enabled: true
-  className: nginx
-  annotations:
-    kubernetes.io/ingress.class: nginx
-  hosts:
-    - host: api.dev.microbankapp.com
-      paths:
-        - path: /api
-          pathType: Prefix

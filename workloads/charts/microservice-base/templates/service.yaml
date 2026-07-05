@@ -15,19 +15,12 @@ spec:
   clusterIP: None
   {{- end }}
   ports:
-  - name: http
-    port: {{ .Values.service.port }}
-    targetPort: {{ .Values.service.targetPort }}
-    protocol: TCP
-  {{- if .Values.service.metrics.enabled }}
-  - name: metrics
-    port: {{ .Values.service.metrics.port }}
-    targetPort: {{ .Values.service.metrics.targetPort }}
-    protocol: TCP
-  {{ end }}
-  {{- with .Values.service.extraPorts }}
-{{ toYaml . | nindent 2 }}
-  {{- end }}
+{{- range .Values.service.ports }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      targetPort: {{ .targetPort }}
+      protocol: {{ default "TCP" .protocol }}
+{{- end }}
   selector:
     {{- include "microservice.selectorLabels" . | nindent 4 }}
 {{- end }}
