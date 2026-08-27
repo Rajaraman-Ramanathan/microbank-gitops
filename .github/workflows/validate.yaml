@@ -1,0 +1,21 @@
+name: GitOps Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: gitops-validate-${{ github.repository }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate GitOps
+    uses: microbank/microbank-github-workflows/.github/workflows/gitops-validate.yaml@v1
+    with:
+      service-name: account

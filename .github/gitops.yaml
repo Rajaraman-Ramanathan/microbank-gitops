@@ -1,0 +1,31 @@
+apiVersion: gitops.microbank.io/v1alpha1
+kind: GitOpsRepository
+
+metadata:
+  name: account
+
+spec:
+
+  source:
+    applicationRepository: microbank/microbank-account-service
+
+  deployment:
+    chartPath: workloads/charts/microservice-base
+
+    environments:
+      - dev
+      - stage
+      - prod
+
+  applicationAutomation:
+    provider: github-app
+
+    actor:
+      type: app
+      slug: microbank-gitops-writer
+
+    allowedPaths:
+      - environments/{environment}/account/values.yaml
+
+    allowedFields:
+      - /image/digest
