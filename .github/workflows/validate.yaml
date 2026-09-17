@@ -19,3 +19,5 @@ jobs:
     uses: microbank/microbank-github-workflows/.github/workflows/gitops-validate.yaml@v1
     with:
       service-name: account
+    secrets:
+      PLATFORM_POLICY_APP_PRIVATE_KEY: ${{ secrets.PLATFORM_POLICY_APP_PRIVATE_KEY }}
